@@ -1,9 +1,24 @@
 import React from "react";
+import { Feed } from "../../ui/Feed";
 import { Layout } from "../../ui/Layout";
-import { Tweet } from "../../ui/Tweet";
+import { TweetCardProps } from "../../ui/TweetCard";
 import { useVerifyLoggedIn } from "../auth/useVerifyLoggedIn";
 
 interface LoungePageProps {}
+
+const tweets: TweetCardProps[] = [
+  {
+    avatar: "/avatar.png",
+    commentAmount: 1,
+    createdAt: "unixtimestamp",
+    displayname: "zxffo",
+    likeAmount: 1,
+    retweetAmount: 1,
+    text:
+      "teassdfasdfasdjflkasjdfklasjdfl;kjsdlfk;jasdlkfjasdlkfjdjsfkdskjfasdjfkajsdfkdsjfkdsjf:dfasdfsdffkjasdk",
+    username: "zxffo",
+  },
+];
 
 export const LoungePage: React.FC<LoungePageProps> = ({}) => {
   if (!useVerifyLoggedIn()) {
@@ -12,15 +27,7 @@ export const LoungePage: React.FC<LoungePageProps> = ({}) => {
 
   return (
     <Layout>
-      <div className="flex-col">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => (
-          <ul>
-            <li className="border-b border-gray-600">
-              <Tweet />
-            </li>
-          </ul>
-        ))}
-      </div>
+      <Feed tweets={tweets} emptyPlaceholder={<p>nothing to see here</p>} />
     </Layout>
   );
 };

@@ -1,5 +1,8 @@
+import { useApolloClient } from "@apollo/client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import { useLogoutMutation } from "../generated/graphql";
 import {
   BellIcon,
   BookmarkIcon,
@@ -13,7 +16,19 @@ import {
 } from "../icons";
 import { Button } from "./Button";
 
-interface SidebarProps {}
+export interface SidebarProps {}
+
+const logout = () => {
+  const router = useRouter();
+  const [logout, loading] = useLogoutMutation();
+  const apolloClient = useApolloClient();
+
+  router.replace("/login?next=" + router.asPath).then(async () => {
+    await logout().then(async () => {
+      await apolloClient.resetStore();
+    });
+  });
+};
 
 const navigation = [
   { title: "Home", Icon: <HomeIcon width={30} height={30} /> },
@@ -45,6 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({}) => {
       <Button color="secondary" size="big" className="my-5">
         Tweet
       </Button>
+      <Button onClick={async () => logout}>Logout</Button>
     </div>
   );
 };
