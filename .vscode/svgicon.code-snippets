@@ -1,0 +1,34 @@
+{
+	"svgicon": {
+		"prefix": "icon",
+		"body": [
+			"import * as React from 'react';",
+			"",
+			"function ${TM_FILENAME_BASE}(props: React.SVGProps<SVGSVGElement>) {",
+			"  return (",
+			"    <svg",
+			"      width={24}",
+			"      height={24}",
+			"      viewBox='0 0 24 24'",
+			"      fill='none'",
+			"      stroke='currentColor'",
+			"      xmlns='http://www.w3.org/2000/svg'",
+			"      {...props}",
+			"    >",
+			"     $1",
+			"    </svg>",
+			"  );",
+			"}",
+			"",
+			"export default ${TM_FILENAME_BASE};"
+		],
+		"description": "svg boilerplate"
+	},
+	"icon export": {
+		"prefix": "icone",
+		"body": [
+			"export { default as $1 } from \"./$1\";"
+		],
+		"description": "export icon"
+	}
+}

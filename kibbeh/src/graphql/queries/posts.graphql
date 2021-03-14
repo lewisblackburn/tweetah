@@ -1,0 +1,5 @@
+query Posts($take: Int!, $where: PostWhereInput, $skip: Int!) {
+  posts(take: $take, where: $where, skip: $skip) {
+    id
+  }
+}

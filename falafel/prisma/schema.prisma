@@ -1,0 +1,62 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/zxffo"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../src/generated/type-graphql"
+}
+
+model User {
+  id         Int            @id @default(autoincrement())
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  username   String?        @unique
+  email      String         @unique
+  /// @TypeGraphQL.omit(output: true)
+  password   String
+  followedBy User[]         @relation("UserFollows", references: [id])
+  following  User[]         @relation("UserFollows", references: [id])
+  role       UserRole       @default(USER)
+  posts      Post[]
+  likes      LikesOnPosts[]
+}
+
+model Post {
+  id         Int            @id @default(autoincrement())
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  content    String?
+  published  Boolean        @default(false)
+  authorId   Int
+  author     User           @relation(fields: [authorId], references: [id])
+  likeAmount Int            @default(0)
+  likes      LikesOnPosts[]
+}
+
+model Like {
+  id    Int            @id @default(autoincrement())
+  posts LikesOnPosts[]
+}
+
+model LikesOnPosts {
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int // relation scalar field (used in the `@relation` attribute above)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt DateTime @default(now())
+
+  like   Like? @relation(fields: [likeId], references: [id])
+  likeId Int?
+  @@id([postId, userId])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}

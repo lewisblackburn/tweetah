@@ -1,0 +1,14 @@
+mutation createDraft($content: String!) {
+  createDraft(content: $content) {
+    content
+    id
+    published
+    authorId
+    liked
+    author {
+      username
+    }
+    createdAt
+    updatedAt
+  }
+}

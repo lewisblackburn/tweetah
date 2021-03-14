@@ -1,0 +1,8 @@
+query Followers {
+  me {
+    followedBy {
+      id
+      username
+    }
+  }
+}

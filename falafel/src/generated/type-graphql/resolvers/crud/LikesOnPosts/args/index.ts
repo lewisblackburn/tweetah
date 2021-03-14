@@ -1,0 +1,10 @@
+export { AggregateLikesOnPostsArgs } from "./AggregateLikesOnPostsArgs";
+export { CreateLikesOnPostsArgs } from "./CreateLikesOnPostsArgs";
+export { DeleteLikesOnPostsArgs } from "./DeleteLikesOnPostsArgs";
+export { DeleteManyLikesOnPostsArgs } from "./DeleteManyLikesOnPostsArgs";
+export { FindFirstLikesOnPostsArgs } from "./FindFirstLikesOnPostsArgs";
+export { FindManyLikesOnPostsArgs } from "./FindManyLikesOnPostsArgs";
+export { FindUniqueLikesOnPostsArgs } from "./FindUniqueLikesOnPostsArgs";
+export { UpdateLikesOnPostsArgs } from "./UpdateLikesOnPostsArgs";
+export { UpdateManyLikesOnPostsArgs } from "./UpdateManyLikesOnPostsArgs";
+export { UpsertLikesOnPostsArgs } from "./UpsertLikesOnPostsArgs";

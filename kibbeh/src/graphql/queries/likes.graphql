@@ -1,0 +1,13 @@
+query Likes(
+  $postId: IntFilter!
+  $take: Int
+  $cursor: LikesOnPostsWhereUniqueInput
+  $skip: Int
+) {
+  likes(take: $take, cursor: $cursor, skip: $skip, where: {postId: $postId}) {
+    user {
+      id
+      username
+    }
+  }
+}

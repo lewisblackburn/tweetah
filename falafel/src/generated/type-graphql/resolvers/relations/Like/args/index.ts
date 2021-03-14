@@ -1,0 +1,1 @@
+export { LikePostsArgs } from "./LikePostsArgs";

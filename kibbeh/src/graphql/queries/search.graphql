@@ -1,0 +1,9 @@
+query Search($searchString: String!) {
+  search(searchString: $searchString) {
+    content
+    id
+    author {
+      username
+    }
+  }
+}
