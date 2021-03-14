@@ -1,31 +1,26 @@
-import React, {
-  TextareaHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, {useState, useEffect, useRef, TextareaHTMLAttributes} from 'react'
 
 const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [text, setText] = useState("");
-  const [textAreaHeight, setTextAreaHeight] = useState("auto");
-  const [parentHeight, setParentHeight] = useState("auto");
+  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const [text, setText] = useState('')
+  const [textAreaHeight, setTextAreaHeight] = useState('auto')
+  const [parentHeight, setParentHeight] = useState('auto')
 
   useEffect(() => {
-    setParentHeight(`${textAreaRef.current!.scrollHeight}px`);
-    setTextAreaHeight(`${textAreaRef.current!.scrollHeight}px`);
-  }, [text]);
+    setParentHeight(`${textAreaRef.current!.scrollHeight}px`)
+    setTextAreaHeight(`${textAreaRef.current!.scrollHeight}px`)
+  }, [text])
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (textAreaRef.current!.scrollHeight > 400) return;
-    setTextAreaHeight("auto");
-    setParentHeight(`${textAreaRef.current!.scrollHeight}px`);
-    setText(event.target.value);
+    if (textAreaRef.current!.scrollHeight > 400) return
+    setTextAreaHeight('auto')
+    setParentHeight(`${textAreaRef.current!.scrollHeight}px`)
+    setText(event.target.value)
 
     if (props.onChange) {
-      props.onChange(event);
+      props.onChange(event)
     }
-  };
+  }
 
   return (
     <div
@@ -43,7 +38,7 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
         onChange={onChangeHandler}
       />
     </div>
-  );
-};
+  )
+}
 
-export default AutoTextArea;
+export default AutoTextArea

@@ -1,12 +1,12 @@
-import { ErrorMessage, Field } from "formik";
-import React from "react";
+import {ErrorMessage, Field} from 'formik'
+import React from 'react'
 
 interface InputFieldProps {
-  name: string;
-  type: string;
-  placeholder: string;
-  errors: any;
-  touched: any;
+  name: string
+  type: string
+  placeholder: string
+  errors: any
+  touched: any
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -36,7 +36,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         {(msg) => <div className="text-red-500 truncate">{msg}</div>}
       </ErrorMessage>
     </div>
-  );
-};
+  )
+}
 
-export default InputField;
+export default InputField
