@@ -2,11 +2,12 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { CommentsOnTweetsUpdateManyWithoutUserInput } from "../inputs/CommentsOnTweetsUpdateManyWithoutUserInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumUserRoleFieldUpdateOperationsInput } from "../inputs/EnumUserRoleFieldUpdateOperationsInput";
-import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
-import { PostUpdateManyWithoutAuthorInput } from "../inputs/PostUpdateManyWithoutAuthorInput";
+import { RetweetsOnTweetsUpdateManyWithoutUserInput } from "../inputs/RetweetsOnTweetsUpdateManyWithoutUserInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { TweetUpdateManyWithoutAuthorInput } from "../inputs/TweetUpdateManyWithoutAuthorInput";
 import { UserUpdateManyWithoutFollowedByInput } from "../inputs/UserUpdateManyWithoutFollowedByInput";
 import { UserUpdateManyWithoutFollowingInput } from "../inputs/UserUpdateManyWithoutFollowingInput";
 
@@ -24,10 +25,15 @@ export class UserUpdateWithoutLikesInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  username?: NullableStringFieldUpdateOperationsInput | undefined;
+  username?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  displayname?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
@@ -54,8 +60,18 @@ export class UserUpdateWithoutLikesInput {
   })
   following?: UserUpdateManyWithoutFollowedByInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutAuthorInput, {
+  @TypeGraphQL.Field(_type => TweetUpdateManyWithoutAuthorInput, {
     nullable: true
   })
-  posts?: PostUpdateManyWithoutAuthorInput | undefined;
+  tweets?: TweetUpdateManyWithoutAuthorInput | undefined;
+
+  @TypeGraphQL.Field(_type => RetweetsOnTweetsUpdateManyWithoutUserInput, {
+    nullable: true
+  })
+  retweets?: RetweetsOnTweetsUpdateManyWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => CommentsOnTweetsUpdateManyWithoutUserInput, {
+    nullable: true
+  })
+  comments?: CommentsOnTweetsUpdateManyWithoutUserInput | undefined;
 }

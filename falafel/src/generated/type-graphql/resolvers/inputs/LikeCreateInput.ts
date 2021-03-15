@@ -2,14 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { LikesOnPostsCreateNestedManyWithoutLikeInput } from "../inputs/LikesOnPostsCreateNestedManyWithoutLikeInput";
+import { LikesOnTweetsCreateNestedManyWithoutLikeInput } from "../inputs/LikesOnTweetsCreateNestedManyWithoutLikeInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
 })
 export class LikeCreateInput {
-  @TypeGraphQL.Field(_type => LikesOnPostsCreateNestedManyWithoutLikeInput, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsCreateNestedManyWithoutLikeInput, {
     nullable: true
   })
-  posts?: LikesOnPostsCreateNestedManyWithoutLikeInput | undefined;
+  tweets?: LikesOnTweetsCreateNestedManyWithoutLikeInput | undefined;
 }

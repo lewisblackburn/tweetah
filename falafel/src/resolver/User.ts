@@ -57,10 +57,12 @@ export class UserResolver {
     return ctx.prisma.user.findMany(args);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, {
+    nullable: false,
+  })
   async register(
-    @Arg("data") data: RegisterInput,
-    @Ctx() ctx: Context
+    @Ctx() ctx: Context,
+    @Args() data: RegisterInput
   ): Promise<User> {
     const alreadyExists = await ctx.prisma.user.findFirst({
       where: {
@@ -80,8 +82,9 @@ export class UserResolver {
     const hashedPassword = await argon2.hash(data.password);
     const user = await ctx.prisma.user.create({
       data: {
-        username: data.username,
+        displayname: data.displayname,
         email: data.email,
+        username: data.username,
         password: hashedPassword,
       },
     });

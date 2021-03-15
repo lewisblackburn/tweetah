@@ -1,1 +1,1 @@
-export { LikePostsArgs } from "./LikePostsArgs";
+export { LikeTweetsArgs } from "./LikeTweetsArgs";

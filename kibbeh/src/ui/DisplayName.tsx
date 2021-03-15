@@ -5,5 +5,5 @@ export interface DisplayNameProps {
 }
 
 export const DisplayName: React.FC<DisplayNameProps> = ({ displayname }) => {
-  return <h5 className="font-bold mr-2">{displayname}</h5>;
+  return <h5 className="font-bold">{displayname}</h5>;
 };

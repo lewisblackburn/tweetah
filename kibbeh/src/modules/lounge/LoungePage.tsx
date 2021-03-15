@@ -1,33 +1,29 @@
 import React from "react";
+import { usePostsQuery } from "../../generated/graphql";
 import { Feed } from "../../ui/Feed";
 import { Layout } from "../../ui/Layout";
-import { TweetCardProps } from "../../ui/TweetCard";
 import { useVerifyLoggedIn } from "../auth/useVerifyLoggedIn";
 
 interface LoungePageProps {}
-
-const tweets: TweetCardProps[] = [
-  {
-    avatar: "/avatar.png",
-    commentAmount: 1,
-    createdAt: "unixtimestamp",
-    displayname: "zxffo",
-    likeAmount: 1,
-    retweetAmount: 1,
-    text:
-      "teassdfasdfasdjflkasjdfklasjdfl;kjsdlfk;jasdlkfjasdlkfjdjsfkdskjfasdjfkajsdfkdsjfkdsjf:dfasdfsdffkjasdk",
-    username: "zxffo",
-  },
-];
 
 export const LoungePage: React.FC<LoungePageProps> = ({}) => {
   if (!useVerifyLoggedIn()) {
     return null;
   }
 
+  const { data, loading, fetchMore, previousData, error } = usePostsQuery({
+    variables: {
+      take: 5,
+      skip: 0,
+    },
+    /* pollInterval: 20000, */
+    notifyOnNetworkStatusChange: true,
+  });
+  console.log(data);
+
   return (
     <Layout>
-      <Feed tweets={tweets} emptyPlaceholder={<p>nothing to see here</p>} />
+      <Feed tweets={[]} emptyPlaceholder={<p>Nothing to see here...</p>} />
     </Layout>
   );
 };

@@ -2,13 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { CommentsOnTweetsListRelationFilter } from "../inputs/CommentsOnTweetsListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumUserRoleFilter } from "../inputs/EnumUserRoleFilter";
 import { IntFilter } from "../inputs/IntFilter";
-import { LikesOnPostsListRelationFilter } from "../inputs/LikesOnPostsListRelationFilter";
-import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
+import { LikesOnTweetsListRelationFilter } from "../inputs/LikesOnTweetsListRelationFilter";
+import { RetweetsOnTweetsListRelationFilter } from "../inputs/RetweetsOnTweetsListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
-import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { TweetListRelationFilter } from "../inputs/TweetListRelationFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
 
 @TypeGraphQL.InputType({
@@ -45,10 +46,15 @@ export class UserWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  username?: StringNullableFilter | undefined;
+  username?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
+  displayname?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
@@ -75,13 +81,23 @@ export class UserWhereInput {
   })
   role?: EnumUserRoleFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PostListRelationFilter, {
+  @TypeGraphQL.Field(_type => TweetListRelationFilter, {
     nullable: true
   })
-  posts?: PostListRelationFilter | undefined;
+  tweets?: TweetListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnPostsListRelationFilter, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsListRelationFilter, {
     nullable: true
   })
-  likes?: LikesOnPostsListRelationFilter | undefined;
+  likes?: LikesOnTweetsListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => RetweetsOnTweetsListRelationFilter, {
+    nullable: true
+  })
+  retweets?: RetweetsOnTweetsListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => CommentsOnTweetsListRelationFilter, {
+    nullable: true
+  })
+  comments?: CommentsOnTweetsListRelationFilter | undefined;
 }

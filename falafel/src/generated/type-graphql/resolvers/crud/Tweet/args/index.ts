@@ -1,0 +1,10 @@
+export { AggregateTweetArgs } from "./AggregateTweetArgs";
+export { CreateTweetArgs } from "./CreateTweetArgs";
+export { DeleteManyTweetArgs } from "./DeleteManyTweetArgs";
+export { DeleteTweetArgs } from "./DeleteTweetArgs";
+export { FindFirstTweetArgs } from "./FindFirstTweetArgs";
+export { FindManyTweetArgs } from "./FindManyTweetArgs";
+export { FindUniqueTweetArgs } from "./FindUniqueTweetArgs";
+export { UpdateManyTweetArgs } from "./UpdateManyTweetArgs";
+export { UpdateTweetArgs } from "./UpdateTweetArgs";
+export { UpsertTweetArgs } from "./UpsertTweetArgs";

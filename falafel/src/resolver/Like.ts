@@ -9,40 +9,40 @@ import {
   Resolver,
 } from "type-graphql";
 import {
-  FindManyLikesOnPostsArgs,
-  LikesOnPosts,
+  FindManyLikesOnTweetsArgs,
+  LikesOnTweets,
 } from "../generated/type-graphql";
 import { Context } from "../interfaces/context";
 
-@Resolver(() => LikesOnPosts)
+@Resolver(() => LikesOnTweets)
 export class LikeResolver {
   @Authorized(["USER", "ADMIN"])
-  @Mutation(() => LikesOnPosts, {
+  @Mutation(() => LikesOnTweets, {
     nullable: false,
   })
   async like(
     @Ctx() ctx: Context,
-    @Arg("postId", (type) => Int) postId: number
-  ): Promise<LikesOnPosts> {
-    const userId = ctx.req.session.userId;
+    @Arg("tweetId", (type) => Int) tweetId: number
+  ): Promise<LikesOnTweets> {
+    const userId = ctx.req.session.userId || -1;
 
-    const likeOnPost = await ctx.prisma.likesOnPosts.findUnique({
+    const likeOnTweet = await ctx.prisma.likesOnTweets.findUnique({
       where: {
-        postId_userId: { postId, userId: userId! },
+        tweetId_userId: { tweetId, userId },
       },
     });
 
-    if (likeOnPost) {
-      return ctx.prisma.likesOnPosts.delete({
+    if (likeOnTweet) {
+      return ctx.prisma.likesOnTweets.delete({
         where: {
-          postId_userId: { postId, userId: userId! },
+          tweetId_userId: { tweetId, userId },
         },
       });
     } else {
-      return ctx.prisma.likesOnPosts.create({
+      return ctx.prisma.likesOnTweets.create({
         data: {
-          post: {
-            connect: { id: postId },
+          tweet: {
+            connect: { id: tweetId },
           },
           user: {
             connect: { id: userId },
@@ -53,13 +53,13 @@ export class LikeResolver {
   }
 
   @Authorized(["USER", "ADMIN"])
-  @Query(() => [LikesOnPosts], {
+  @Query(() => [LikesOnTweets], {
     nullable: false,
   })
   async likes(
-    @Ctx() ctx: Context,
-    @Args() args: FindManyLikesOnPostsArgs
-  ): Promise<LikesOnPosts[]> {
-    return ctx.prisma.likesOnPosts.findMany(args);
+    @Ctx() ctx: any,
+    @Args() args: FindManyLikesOnTweetsArgs
+  ): Promise<LikesOnTweets[]> {
+    return ctx.prisma.likesOnTweets.findMany(args);
   }
 }

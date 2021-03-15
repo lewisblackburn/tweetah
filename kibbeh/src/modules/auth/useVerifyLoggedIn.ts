@@ -8,12 +8,10 @@ export const useVerifyLoggedIn = () => {
   const hasUser = !!(!loading && data?.me);
 
   useEffect(() => {
-    // if (!hasUser) {
-    if (hasUser) {
+    if (!hasUser) {
       replace(`/?next=${pathname}`);
     }
   }, [hasUser, pathname, replace]);
 
-  // return hasUser;
-  return true;
+  return hasUser;
 };

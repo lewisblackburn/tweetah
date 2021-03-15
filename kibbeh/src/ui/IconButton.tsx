@@ -3,7 +3,7 @@ import React, {
   DetailedHTMLProps,
   ReactNode,
 } from "react";
-import { kFormatter } from "../lib/kFormatter";
+import { Icon } from "./Icon";
 import { Spinner } from "./Spinner";
 
 export type IconButtonProps = DetailedHTMLProps<
@@ -24,18 +24,14 @@ export const IconButton: React.FC<IconButtonProps> = ({
   ...props
 }) => {
   return (
-    <button
-      disabled={disabled || loading}
-      className={`flex items-center disabled:text-accent-disabled  ${className}`}
-      {...props}
-    >
+    <button disabled={loading || disabled} className={className} {...props}>
       {loading ? (
         <Spinner size="4" />
       ) : (
-        <span>
-          {icon}
-          {number && <span>{kFormatter(number)}</span>}
-        </span>
+        <div className="flex items-center">
+          <Icon icon={icon} />
+          {number}
+        </div>
       )}
     </button>
   );

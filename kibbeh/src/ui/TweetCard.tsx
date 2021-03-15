@@ -1,68 +1,67 @@
 import React from "react";
-import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
+import { CommentIcon } from "../icons";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
 import { IconButton } from "./IconButton";
 import { Username } from "./Username";
 
 export interface TweetCardProps {
-  displayname: string;
-  username: string;
-  avatar: string;
+  id: number;
+  createdAt: number;
   text: string;
-  image?: string;
-  commentAmount: number;
-  retweetAmount: number;
+  image: string;
   likeAmount: number;
-  createdAt: string;
+  commentAmount: number;
+  rewteetAmount: number;
+  liked: boolean;
+  author: {
+    username: string;
+    displayname: string;
+  };
 }
 
 export const TweetCard: React.FC<TweetCardProps> = ({
-  displayname,
-  username,
-  avatar,
+  id,
+  createdAt,
   text,
   image,
-  commentAmount,
-  retweetAmount,
   likeAmount,
-  createdAt,
+  commentAmount,
+  rewteetAmount,
+  liked,
+  author: { username, displayname },
 }) => {
   return (
-    <article className="flex px-4 py-3">
-      <Avatar size="sm" src={avatar} />
-      <section className="flex-col px-4 flex-1">
+    <article key={id} className="border-b border-t border-gray-900">
+      <div className="flex items-center space-x-4 py-4">
+        <Avatar src="" size="sm" />
         <div className="flex">
           <DisplayName displayname={displayname} />
-          <Username username={username} />
-          <span className="text-gray-400">- {createdAt}</span>
+          <Username username={username} />- {createdAt}
         </div>
-        <p className="mt-1">{text}</p>
-        {image && <img src={image} alt="post image" />}
-        <ul className="flex justify-between text-sm text-gray-400 mt-4 pr-32">
-          <li>
-            <IconButton
-              icon={<CommentIcon width={16} height={16} />}
-              number={commentAmount}
-            />
-          </li>
-          <li>
-            <IconButton
-              icon={<RetweetIcon width={16} height={16} />}
-              number={retweetAmount}
-            />
-          </li>
-          <li>
-            <IconButton
-              icon={<HeartIcon width={16} height={16} />}
-              number={likeAmount}
-            />
-          </li>
-          <li>
-            <IconButton icon={<ShareIcon width={16} height={16} />} />
-          </li>
-        </ul>
-      </section>
+      </div>
+      <div className="flex-col">
+        <p>{text}</p>
+        {image ?? <p>display image</p>}
+        <div className="flex justify-between">
+          <IconButton
+            icon={<CommentIcon width={16} height={16} />}
+            number={1}
+          />
+          <IconButton
+            icon={<CommentIcon width={16} height={16} />}
+            number={1}
+          />
+          <IconButton
+            icon={<CommentIcon width={16} height={16} />}
+            number={1}
+          />
+          <IconButton
+            icon={<CommentIcon width={16} height={16} />}
+            number={1}
+          />
+        </div>
+      </div>
     </article>
   );
 };

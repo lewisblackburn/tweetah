@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { LikesOnPostsOrderByInput } from "../../../inputs/LikesOnPostsOrderByInput";
-import { LikesOnPostsWhereInput } from "../../../inputs/LikesOnPostsWhereInput";
-import { LikesOnPostsWhereUniqueInput } from "../../../inputs/LikesOnPostsWhereUniqueInput";
-import { LikesOnPostsScalarFieldEnum } from "../../../../enums/LikesOnPostsScalarFieldEnum";
+import { LikesOnTweetsOrderByInput } from "../../../inputs/LikesOnTweetsOrderByInput";
+import { LikesOnTweetsWhereInput } from "../../../inputs/LikesOnTweetsWhereInput";
+import { LikesOnTweetsWhereUniqueInput } from "../../../inputs/LikesOnTweetsWhereUniqueInput";
+import { LikesOnTweetsScalarFieldEnum } from "../../../../enums/LikesOnTweetsScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class UserLikesArgs {
-  @TypeGraphQL.Field(_type => LikesOnPostsWhereInput, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsWhereInput, {
     nullable: true
   })
-  where?: LikesOnPostsWhereInput | undefined;
+  where?: LikesOnTweetsWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [LikesOnPostsOrderByInput], {
+  @TypeGraphQL.Field(_type => [LikesOnTweetsOrderByInput], {
     nullable: true
   })
-  orderBy?: LikesOnPostsOrderByInput[] | undefined;
+  orderBy?: LikesOnTweetsOrderByInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnPostsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsWhereUniqueInput, {
     nullable: true
   })
-  cursor?: LikesOnPostsWhereUniqueInput | undefined;
+  cursor?: LikesOnTweetsWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,8 +32,8 @@ export class UserLikesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [LikesOnPostsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [LikesOnTweetsScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"postId" | "userId" | "createdAt" | "likeId"> | undefined;
+  distinct?: Array<"tweetId" | "userId" | "createdAt" | "likeId"> | undefined;
 }

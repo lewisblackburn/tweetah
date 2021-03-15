@@ -2,8 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { LikesOnPosts } from "../models/LikesOnPosts";
-import { Post } from "../models/Post";
+import { CommentsOnTweets } from "../models/CommentsOnTweets";
+import { LikesOnTweets } from "../models/LikesOnTweets";
+import { RetweetsOnTweets } from "../models/RetweetsOnTweets";
+import { Tweet } from "../models/Tweet";
 import { UserRole } from "../enums/UserRole";
 
 @TypeGraphQL.ObjectType({
@@ -26,9 +28,14 @@ export class User {
   updatedAt!: Date;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  username?: string | null;
+  username!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  displayname!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -46,7 +53,11 @@ export class User {
   })
   role!: "USER" | "ADMIN";
 
-  posts?: Post[];
+  tweets?: Tweet[];
 
-  likes?: LikesOnPosts[];
+  likes?: LikesOnTweets[];
+
+  retweets?: RetweetsOnTweets[];
+
+  comments?: CommentsOnTweets[];
 }

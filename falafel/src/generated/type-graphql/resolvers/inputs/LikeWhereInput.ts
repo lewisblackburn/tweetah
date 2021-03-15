@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
-import { LikesOnPostsListRelationFilter } from "../inputs/LikesOnPostsListRelationFilter";
+import { LikesOnTweetsListRelationFilter } from "../inputs/LikesOnTweetsListRelationFilter";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -29,8 +29,8 @@ export class LikeWhereInput {
   })
   id?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnPostsListRelationFilter, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsListRelationFilter, {
     nullable: true
   })
-  posts?: LikesOnPostsListRelationFilter | undefined;
+  tweets?: LikesOnTweetsListRelationFilter | undefined;
 }

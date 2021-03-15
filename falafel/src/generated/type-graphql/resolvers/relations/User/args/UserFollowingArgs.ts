@@ -35,5 +35,5 @@ export class UserFollowingArgs {
   @TypeGraphQL.Field(_type => [UserScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "username" | "email" | "password" | "role"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "username" | "displayname" | "email" | "password" | "role"> | undefined;
 }

@@ -1,22 +1,20 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import { Spinner } from "./Spinner";
 import { TweetCard, TweetCardProps } from "./TweetCard";
 
 export interface FeedProps {
   tweets: TweetCardProps[];
-  emptyPlaceholder: ReactNode;
 }
 
-export const Feed: React.FC<FeedProps> = ({ tweets, emptyPlaceholder }) => {
+export const Feed: React.FC<FeedProps> = ({ tweets }) => {
   return (
-    <div>
-      {tweets.length === 0 && emptyPlaceholder}
-      <ul className="flex-col">
-        {tweets.map((tweet, index) => (
-          <li key={index} className="border-b border-gray-600">
-            <TweetCard {...tweet} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      {tweets.length === 0 && <Spinner />}
+      {tweets.map((tweet, index) => (
+        <div key={index}>
+          <TweetCard {...tweet} />
+        </div>
+      ))}
+    </>
   );
 };

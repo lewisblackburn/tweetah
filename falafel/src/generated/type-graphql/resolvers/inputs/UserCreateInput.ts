@@ -2,8 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { LikesOnPostsCreateNestedManyWithoutUserInput } from "../inputs/LikesOnPostsCreateNestedManyWithoutUserInput";
-import { PostCreateNestedManyWithoutAuthorInput } from "../inputs/PostCreateNestedManyWithoutAuthorInput";
+import { CommentsOnTweetsCreateNestedManyWithoutUserInput } from "../inputs/CommentsOnTweetsCreateNestedManyWithoutUserInput";
+import { LikesOnTweetsCreateNestedManyWithoutUserInput } from "../inputs/LikesOnTweetsCreateNestedManyWithoutUserInput";
+import { RetweetsOnTweetsCreateNestedManyWithoutUserInput } from "../inputs/RetweetsOnTweetsCreateNestedManyWithoutUserInput";
+import { TweetCreateNestedManyWithoutAuthorInput } from "../inputs/TweetCreateNestedManyWithoutAuthorInput";
 import { UserCreateNestedManyWithoutFollowedByInput } from "../inputs/UserCreateNestedManyWithoutFollowedByInput";
 import { UserCreateNestedManyWithoutFollowingInput } from "../inputs/UserCreateNestedManyWithoutFollowingInput";
 import { UserRole } from "../../enums/UserRole";
@@ -23,9 +25,14 @@ export class UserCreateInput {
   updatedAt?: Date | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: true
+    nullable: false
   })
-  username?: string | undefined;
+  username!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  displayname!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -52,13 +59,23 @@ export class UserCreateInput {
   })
   following?: UserCreateNestedManyWithoutFollowedByInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutAuthorInput, {
+  @TypeGraphQL.Field(_type => TweetCreateNestedManyWithoutAuthorInput, {
     nullable: true
   })
-  posts?: PostCreateNestedManyWithoutAuthorInput | undefined;
+  tweets?: TweetCreateNestedManyWithoutAuthorInput | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnPostsCreateNestedManyWithoutUserInput, {
+  @TypeGraphQL.Field(_type => LikesOnTweetsCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  likes?: LikesOnPostsCreateNestedManyWithoutUserInput | undefined;
+  likes?: LikesOnTweetsCreateNestedManyWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => RetweetsOnTweetsCreateNestedManyWithoutUserInput, {
+    nullable: true
+  })
+  retweets?: RetweetsOnTweetsCreateNestedManyWithoutUserInput | undefined;
+
+  @TypeGraphQL.Field(_type => CommentsOnTweetsCreateNestedManyWithoutUserInput, {
+    nullable: true
+  })
+  comments?: CommentsOnTweetsCreateNestedManyWithoutUserInput | undefined;
 }

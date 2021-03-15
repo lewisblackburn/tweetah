@@ -19,5 +19,11 @@ export class RegisterInput extends LoginInput {
   @Length(2, 16)
   @NotContains("@")
   @Field()
+  displayname: string;
+
+  @IsString()
+  @Length(2, 16)
+  @NotContains("@")
+  @Field()
   username: string;
 }
