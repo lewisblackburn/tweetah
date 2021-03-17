@@ -25,7 +25,7 @@ import { Context } from "./interfaces/context";
 import { authChecker } from "./middleware/authChecker";
 import { FileResolver } from "./resolver/File";
 import { LikeResolver } from "./resolver/Like";
-import { TweetResovler } from "./resolver/Tweet";
+import { TweetResolver } from "./resolver/Tweet";
 import { UserResolver } from "./resolver/User";
 
 const main = async () => {
@@ -33,18 +33,18 @@ const main = async () => {
   const PORT = parseInt(process.env.PORT || "4000");
 
   const prisma = new PrismaClient({
-    // log: ["query", `warn`, `error`],
+    log: ["query", `warn`, `error`],
   });
 
-  prisma.$use(async (params, next) => {
-    const before = Date.now();
-    const result = await next(params);
-    const after = Date.now();
-    console.log(
-      `Query ${params.model}.${params.action} took ${after - before}ms`
-    );
-    return result;
-  });
+  // prisma.$use(async (params, next) => {
+  //   const before = Date.now();
+  //   const result = await next(params);
+  //   const after = Date.now();
+  //   console.log(
+  //     `Query ${params.model}.${params.action} took ${after - before}ms`
+  //   );
+  //   return result;
+  // });
 
   prisma.$use((params, next) => {
     const limit = 30;
@@ -70,11 +70,11 @@ const main = async () => {
   const schema = await buildSchema({
     resolvers: [
       UserResolver,
-      TweetResovler,
+      TweetResolver,
       LikeResolver,
       FileResolver,
-      UserRelationsResolver,
       TweetRelationsResolver,
+      UserRelationsResolver,
       LikeRelationsResolver,
     ],
     authChecker: authChecker,
@@ -127,7 +127,7 @@ const main = async () => {
               ],
             });
 
-            if (complexity > 10) {
+            if (complexity > 14) {
               throw new Error(
                 `Sorry, too complicated query! ${complexity} is over 10 that is the max allowed complexity.`
               );

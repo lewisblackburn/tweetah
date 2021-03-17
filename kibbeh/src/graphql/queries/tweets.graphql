@@ -1,0 +1,5 @@
+query Tweets($take: Int!, $cursor: TweetWhereUniqueInput!) {
+  tweets (take: $take, cursor: $cursor) {
+    ...RegularTweet
+  }
+}

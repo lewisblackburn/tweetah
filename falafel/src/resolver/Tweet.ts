@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {
   Arg,
-  Args,
   Authorized,
   Ctx,
   FieldResolver,
@@ -11,15 +10,11 @@ import {
   Resolver,
   Root,
 } from "type-graphql";
-import {
-  CreateTweetArgs,
-  FindManyTweetArgs,
-  Tweet,
-} from "../generated/type-graphql";
+import { Tweet, TweetWhereUniqueInput } from "../generated/type-graphql";
 import { Context } from "../interfaces/context";
 
 @Resolver(Tweet)
-export class TweetResovler {
+export class TweetResolver {
   @FieldResolver(() => Boolean)
   async liked(@Root() root: any, @Ctx() ctx: Context): Promise<Boolean> {
     const tweetId = root.id;
@@ -27,40 +22,25 @@ export class TweetResovler {
 
     if (!userId || !tweetId) return false;
 
-    const likeOnTweet = await ctx.prisma.likesOnTweets.findUnique({
+    const like = await ctx.prisma.like.findUnique({
       where: {
         tweetId_userId: { tweetId, userId },
       },
     });
 
-    if (likeOnTweet) return true;
-    return false;
+    if (!like) return false;
+    return true;
   }
 
   @Authorized(["USER", "ADMIN"])
   @Query(() => Tweet, { nullable: true })
   tweet(@Arg("tweetId", (type) => Int) tweetId: number, @Ctx() ctx: Context) {
     return ctx.prisma.tweet.findUnique({
-      where: { id: tweetId },
+      where: {
+        id: tweetId,
+      },
     });
   }
-
-  // @Authorized(["USER", "ADMIN"])
-  // @Query(() => [User], {
-  //   nullable: false,
-  // })
-  // async feed(
-  //   @Ctx() ctx: Context,
-  //   @Args() args: UserFollowingArgs
-  // ): Promise<User[]> {
-  //   return ctx.prisma.user
-  //     .findUnique({
-  //       where: {
-  //         id: ctx.req.session.userId,
-  //       },
-  //     })
-  //     .following(args);
-  // }
 
   @Authorized(["USER", "ADMIN"])
   @Query(() => [Tweet], {
@@ -68,9 +48,26 @@ export class TweetResovler {
   })
   async tweets(
     @Ctx() ctx: Context,
-    @Args() args: FindManyTweetArgs
+    @Arg("take", (type) => Int) take: number,
+    @Arg("cursor") cursor: TweetWhereUniqueInput
   ): Promise<Tweet[]> {
-    return ctx.prisma.tweet.findMany(args);
+    const userId = ctx.req.session.userId || -1;
+    const users = await ctx.prisma.user
+      .findUnique({
+        where: { id: userId },
+      })
+      .following({});
+    const userIds = users.map((x) => x.id);
+    return ctx.prisma.tweet.findMany({
+      where: {
+        authorId: {
+          in: userIds,
+        },
+      },
+      take,
+      cursor,
+      skip: 1,
+    });
   }
 
   @Authorized(["USER", "ADMIN"])
@@ -92,9 +89,19 @@ export class TweetResovler {
   })
   async createTweet(
     @Ctx() ctx: Context,
-    @Args() args: CreateTweetArgs
+    @Arg("text") text: string
   ): Promise<Tweet> {
-    return ctx.prisma.tweet.create(args);
+    const userId = ctx.req.session.userId;
+    return ctx.prisma.tweet.create({
+      data: {
+        text,
+        author: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
   }
 
   @Authorized(["USER", "ADMIN"])
@@ -107,7 +114,7 @@ export class TweetResovler {
       where: { id: tweetId },
     });
     if (tweet?.authorId !== ctx.req.session.userId)
-      throw new Error("You can only delete your own post!");
+      throw new Error("You can only delete your own tweet!");
 
     return ctx.prisma.tweet.delete({
       where: {

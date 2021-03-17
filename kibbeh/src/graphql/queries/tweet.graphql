@@ -1,0 +1,5 @@
+query tweet($tweetId:Int!) {
+  tweet(tweetId:$tweetId) {
+    ...RegularTweet    
+  }
+}

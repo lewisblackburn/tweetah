@@ -1,12 +1,8 @@
 import * as TypeGraphQL from "type-graphql";
-import { CommentsOnTweets } from "../../../models/CommentsOnTweets";
-import { LikesOnTweets } from "../../../models/LikesOnTweets";
-import { RetweetsOnTweets } from "../../../models/RetweetsOnTweets";
+import { Like } from "../../../models/Like";
 import { Tweet } from "../../../models/Tweet";
 import { User } from "../../../models/User";
-import { TweetCommentsArgs } from "./args/TweetCommentsArgs";
-import { TweetLikesOnTweetsArgs } from "./args/TweetLikesOnTweetsArgs";
-import { TweetRetweetsOnTweetsArgs } from "./args/TweetRetweetsOnTweetsArgs";
+import { TweetLikesArgs } from "./args/TweetLikesArgs";
 import { transformFields, getPrismaFromContext } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => Tweet)
@@ -22,36 +18,14 @@ export class TweetRelationsResolver {
     }).author({});
   }
 
-  @TypeGraphQL.FieldResolver(_type => [CommentsOnTweets], {
+  @TypeGraphQL.FieldResolver(_type => [Like], {
     nullable: false
   })
-  async comments(@TypeGraphQL.Root() tweet: Tweet, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: TweetCommentsArgs): Promise<CommentsOnTweets[]> {
+  async likes(@TypeGraphQL.Root() tweet: Tweet, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: TweetLikesArgs): Promise<Like[]> {
     return getPrismaFromContext(ctx).tweet.findUnique({
       where: {
         id: tweet.id,
       },
-    }).comments(args);
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [RetweetsOnTweets], {
-    nullable: false
-  })
-  async RetweetsOnTweets(@TypeGraphQL.Root() tweet: Tweet, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: TweetRetweetsOnTweetsArgs): Promise<RetweetsOnTweets[]> {
-    return getPrismaFromContext(ctx).tweet.findUnique({
-      where: {
-        id: tweet.id,
-      },
-    }).RetweetsOnTweets(args);
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [LikesOnTweets], {
-    nullable: false
-  })
-  async LikesOnTweets(@TypeGraphQL.Root() tweet: Tweet, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Args() args: TweetLikesOnTweetsArgs): Promise<LikesOnTweets[]> {
-    return getPrismaFromContext(ctx).tweet.findUnique({
-      where: {
-        id: tweet.id,
-      },
-    }).LikesOnTweets(args);
+    }).likes(args);
   }
 }

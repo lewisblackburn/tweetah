@@ -2,12 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CommentsOnTweetsListRelationFilter } from "../inputs/CommentsOnTweetsListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumUserRoleFilter } from "../inputs/EnumUserRoleFilter";
 import { IntFilter } from "../inputs/IntFilter";
-import { LikesOnTweetsListRelationFilter } from "../inputs/LikesOnTweetsListRelationFilter";
-import { RetweetsOnTweetsListRelationFilter } from "../inputs/RetweetsOnTweetsListRelationFilter";
+import { LikeListRelationFilter } from "../inputs/LikeListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { TweetListRelationFilter } from "../inputs/TweetListRelationFilter";
 import { UserListRelationFilter } from "../inputs/UserListRelationFilter";
@@ -86,18 +84,8 @@ export class UserWhereInput {
   })
   tweets?: TweetListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnTweetsListRelationFilter, {
+  @TypeGraphQL.Field(_type => LikeListRelationFilter, {
     nullable: true
   })
-  likes?: LikesOnTweetsListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => RetweetsOnTweetsListRelationFilter, {
-    nullable: true
-  })
-  retweets?: RetweetsOnTweetsListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => CommentsOnTweetsListRelationFilter, {
-    nullable: true
-  })
-  comments?: CommentsOnTweetsListRelationFilter | undefined;
+  likes?: LikeListRelationFilter | undefined;
 }

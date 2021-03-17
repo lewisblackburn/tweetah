@@ -1,13 +1,7 @@
-query Likes(
-  $postId: IntFilter!
-  $take: Int
-  $cursor: LikesOnPostsWhereUniqueInput
-  $skip: Int
-) {
-  likes(take: $take, cursor: $cursor, skip: $skip, where: {postId: $postId}) {
+query Likes($tweetId: IntFilter!, $take: Int, $cursor: LikeWhereUniqueInput, $skip: Int) {
+  likes(where: { tweetId: $tweetId }, take: $take, cursor: $cursor, skip: $skip) {
     user {
-      id
-      username
+      ...RegularAuthor
     }
   }
 }

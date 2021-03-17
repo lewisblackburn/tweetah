@@ -2,9 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { CommentsOnTweets } from "../models/CommentsOnTweets";
-import { LikesOnTweets } from "../models/LikesOnTweets";
-import { RetweetsOnTweets } from "../models/RetweetsOnTweets";
+import { Like } from "../models/Like";
 import { User } from "../models/User";
 
 @TypeGraphQL.ObjectType({
@@ -53,9 +51,5 @@ export class Tweet {
   })
   likeAmount!: number;
 
-  comments?: CommentsOnTweets[];
-
-  RetweetsOnTweets?: RetweetsOnTweets[];
-
-  LikesOnTweets?: LikesOnTweets[];
+  likes?: Like[];
 }

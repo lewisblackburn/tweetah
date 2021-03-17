@@ -1,9 +1,8 @@
 query Search($searchString: String!) {
   search(searchString: $searchString) {
-    content
-    id
+    text,
     author {
-      username
+    ...RegularAuthor  
     }
   }
 }

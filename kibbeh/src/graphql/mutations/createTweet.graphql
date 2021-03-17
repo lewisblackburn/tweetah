@@ -1,0 +1,5 @@
+mutation createTweet($text: String!) {
+  createTweet(text: $text) {
+    ...RegularTweet
+  }
+}

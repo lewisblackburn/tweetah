@@ -62,7 +62,7 @@ export class UserResolver {
   })
   async register(
     @Ctx() ctx: Context,
-    @Args() data: RegisterInput
+    @Arg("data") data: RegisterInput
   ): Promise<User> {
     const alreadyExists = await ctx.prisma.user.findFirst({
       where: {

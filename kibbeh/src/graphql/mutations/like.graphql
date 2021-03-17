@@ -1,6 +1,3 @@
-mutation Like($postId: Int!) {
-  like(postId: $postId) {
-    postId
-    userId
-  }
+mutation Like($tweetId: Int!) {
+  like(tweetId: $tweetId)
 }

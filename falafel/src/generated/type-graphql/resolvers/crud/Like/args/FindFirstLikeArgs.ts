@@ -35,5 +35,5 @@ export class FindFirstLikeArgs {
   @TypeGraphQL.Field(_type => [LikeScalarFieldEnum], {
     nullable: true
   })
-  distinct?: "id"[] | undefined;
+  distinct?: Array<"tweetId" | "userId" | "createdAt"> | undefined;
 }

@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { LikesOnTweetsOrderByInput } from "../../../inputs/LikesOnTweetsOrderByInput";
-import { LikesOnTweetsWhereInput } from "../../../inputs/LikesOnTweetsWhereInput";
-import { LikesOnTweetsWhereUniqueInput } from "../../../inputs/LikesOnTweetsWhereUniqueInput";
-import { LikesOnTweetsScalarFieldEnum } from "../../../../enums/LikesOnTweetsScalarFieldEnum";
+import { LikeOrderByInput } from "../../../inputs/LikeOrderByInput";
+import { LikeWhereInput } from "../../../inputs/LikeWhereInput";
+import { LikeWhereUniqueInput } from "../../../inputs/LikeWhereUniqueInput";
+import { LikeScalarFieldEnum } from "../../../../enums/LikeScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class UserLikesArgs {
-  @TypeGraphQL.Field(_type => LikesOnTweetsWhereInput, {
+  @TypeGraphQL.Field(_type => LikeWhereInput, {
     nullable: true
   })
-  where?: LikesOnTweetsWhereInput | undefined;
+  where?: LikeWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [LikesOnTweetsOrderByInput], {
+  @TypeGraphQL.Field(_type => [LikeOrderByInput], {
     nullable: true
   })
-  orderBy?: LikesOnTweetsOrderByInput[] | undefined;
+  orderBy?: LikeOrderByInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnTweetsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => LikeWhereUniqueInput, {
     nullable: true
   })
-  cursor?: LikesOnTweetsWhereUniqueInput | undefined;
+  cursor?: LikeWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,8 +32,8 @@ export class UserLikesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [LikesOnTweetsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [LikeScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"tweetId" | "userId" | "createdAt" | "likeId"> | undefined;
+  distinct?: Array<"tweetId" | "userId" | "createdAt"> | undefined;
 }

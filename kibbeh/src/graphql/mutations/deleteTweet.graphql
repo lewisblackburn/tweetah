@@ -1,0 +1,5 @@
+mutation deleteTweet($tweetId: Int!) {
+  deleteTweet(tweetId: $tweetId) {
+    ...RegularTweet    
+  }
+}

@@ -1,5 +1,0 @@
-query posts($take: int!, $where: postwhereinput, $skip: int!) {
-  posts(take: $take, where: $where, skip: $skip) {
-    id
-  }
-}

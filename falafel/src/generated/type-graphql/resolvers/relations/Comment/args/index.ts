@@ -1,1 +1,0 @@
-export { CommentTweetsArgs } from "./CommentTweetsArgs";

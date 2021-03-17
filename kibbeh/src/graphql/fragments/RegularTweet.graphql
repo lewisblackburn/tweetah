@@ -1,0 +1,16 @@
+fragment RegularTweet on Tweet {
+    id
+    createdAt
+    text
+    image
+    commentAmount
+    retweetAmount
+    likeAmount
+    liked
+    author {
+      id
+      username
+      displayname
+    }
+}
+

@@ -8,58 +8,80 @@ import {
   Query,
   Resolver,
 } from "type-graphql";
-import {
-  FindManyLikesOnTweetsArgs,
-  LikesOnTweets,
-} from "../generated/type-graphql";
+import { FindManyLikeArgs, Like } from "../generated/type-graphql";
 import { Context } from "../interfaces/context";
 
-@Resolver(() => LikesOnTweets)
+@Resolver(() => Like)
 export class LikeResolver {
   @Authorized(["USER", "ADMIN"])
-  @Mutation(() => LikesOnTweets, {
+  @Mutation(() => Boolean, {
     nullable: false,
   })
   async like(
     @Ctx() ctx: Context,
     @Arg("tweetId", (type) => Int) tweetId: number
-  ): Promise<LikesOnTweets> {
+  ): Promise<Boolean> {
     const userId = ctx.req.session.userId || -1;
-
-    const likeOnTweet = await ctx.prisma.likesOnTweets.findUnique({
-      where: {
-        tweetId_userId: { tweetId, userId },
-      },
-    });
-
-    if (likeOnTweet) {
-      return ctx.prisma.likesOnTweets.delete({
-        where: {
-          tweetId_userId: { tweetId, userId },
-        },
-      });
-    } else {
-      return ctx.prisma.likesOnTweets.create({
-        data: {
-          tweet: {
-            connect: { id: tweetId },
+    try {
+      await ctx.prisma.like
+        .create({
+          data: {
+            tweet: {
+              connect: {
+                id: tweetId,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
+            },
           },
-          user: {
-            connect: { id: userId },
+        })
+        .then(async () => {
+          await ctx.prisma.tweet.update({
+            where: {
+              id: tweetId,
+            },
+            data: {
+              likeAmount: {
+                increment: 1,
+              },
+            },
+          });
+        });
+      return true;
+    } catch (e) {
+      await ctx.prisma.like
+        .delete({
+          where: {
+            tweetId_userId: { tweetId, userId },
           },
-        },
-      });
+        })
+        .then(async () => {
+          await ctx.prisma.tweet.update({
+            where: {
+              id: tweetId,
+            },
+            data: {
+              likeAmount: {
+                decrement: 1,
+              },
+            },
+          });
+        });
+      return false;
     }
   }
 
   @Authorized(["USER", "ADMIN"])
-  @Query(() => [LikesOnTweets], {
+  @Query(() => [Like], {
     nullable: false,
   })
   async likes(
-    @Ctx() ctx: any,
-    @Args() args: FindManyLikesOnTweetsArgs
-  ): Promise<LikesOnTweets[]> {
-    return ctx.prisma.likesOnTweets.findMany(args);
+    @Ctx() ctx: Context,
+    @Args() args: FindManyLikeArgs
+  ): Promise<Like[]> {
+    return ctx.prisma.like.findMany(args);
   }
 }

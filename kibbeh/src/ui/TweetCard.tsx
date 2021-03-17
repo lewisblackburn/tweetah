@@ -1,65 +1,47 @@
 import React from "react";
-import { CommentIcon } from "../icons";
+import { Tweet } from "../generated/graphql";
+import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
+import { useConvertUnixTimestamp } from "../lib/convertUnixTimeStamp";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
 import { IconButton } from "./IconButton";
 import { Username } from "./Username";
 
 export interface TweetCardProps {
-  id: number;
-  createdAt: number;
-  text: string;
-  image: string;
-  likeAmount: number;
-  commentAmount: number;
-  rewteetAmount: number;
-  liked: boolean;
-  author: {
-    username: string;
-    displayname: string;
-  };
+  tweet: Tweet;
 }
 
-export const TweetCard: React.FC<TweetCardProps> = ({
-  id,
-  createdAt,
-  text,
-  image,
-  likeAmount,
-  commentAmount,
-  rewteetAmount,
-  liked,
-  author: { username, displayname },
-}) => {
+export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
   return (
-    <article key={id} className="border-b border-t border-gray-900">
+    <article key={tweet.id} className="border-b border-t border-gray-900">
       <div className="flex items-center space-x-4 py-4">
-        <Avatar src="" size="sm" />
+        <Avatar
+          src={`http://localhost:4000/images/${tweet.author.id}/avatar.png`}
+          size="sm"
+        />
         <div className="flex">
-          <DisplayName displayname={displayname} />
-          <Username username={username} />- {createdAt}
+          <DisplayName displayname={tweet.author.displayname} />
+          <Username username={tweet.author.username} />-
+          {useConvertUnixTimestamp(tweet.createdAt).date}
         </div>
       </div>
       <div className="flex-col">
-        <p>{text}</p>
-        {image ?? <p>display image</p>}
+        <p>{tweet.text}</p>
+        {tweet.image !== null && <p>display image</p>}
         <div className="flex justify-between">
           <IconButton
             icon={<CommentIcon width={16} height={16} />}
-            number={1}
+            number={tweet.commentAmount}
           />
           <IconButton
-            icon={<CommentIcon width={16} height={16} />}
-            number={1}
+            icon={<RetweetIcon width={16} height={16} />}
+            number={tweet.retweetAmount}
           />
           <IconButton
-            icon={<CommentIcon width={16} height={16} />}
-            number={1}
+            icon={<HeartIcon width={16} height={16} />}
+            number={tweet.likeAmount}
           />
-          <IconButton
-            icon={<CommentIcon width={16} height={16} />}
-            number={1}
-          />
+          <IconButton icon={<ShareIcon width={16} height={16} />} />
         </div>
       </div>
     </article>

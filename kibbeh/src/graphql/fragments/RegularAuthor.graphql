@@ -1,0 +1,7 @@
+fragment RegularAuthor on User {
+    id
+    username
+    displayname
+}
+
+

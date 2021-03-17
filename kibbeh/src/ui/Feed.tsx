@@ -1,18 +1,18 @@
 import React from "react";
-import { Spinner } from "./Spinner";
-import { TweetCard, TweetCardProps } from "./TweetCard";
+import { Tweet } from "../generated/graphql";
+import { TweetCard } from "./TweetCard";
 
 export interface FeedProps {
-  tweets: TweetCardProps[];
+  tweets: Tweet[];
 }
 
 export const Feed: React.FC<FeedProps> = ({ tweets }) => {
   return (
     <>
-      {tweets.length === 0 && <Spinner />}
+      {tweets.length === 0 && <p>you have no friends, loser</p>}
       {tweets.map((tweet, index) => (
         <div key={index}>
-          <TweetCard {...tweet} />
+          <TweetCard tweet={tweet} />
         </div>
       ))}
     </>

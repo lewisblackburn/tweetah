@@ -1,7 +1,8 @@
 import React from "react";
-import { usePostsQuery } from "../../generated/graphql";
+import { useTweetsQuery } from "../../generated/graphql";
 import { Feed } from "../../ui/Feed";
 import { Layout } from "../../ui/Layout";
+import { Spinner } from "../../ui/Spinner";
 import { useVerifyLoggedIn } from "../auth/useVerifyLoggedIn";
 
 interface LoungePageProps {}
@@ -11,19 +12,24 @@ export const LoungePage: React.FC<LoungePageProps> = ({}) => {
     return null;
   }
 
-  const { data, loading, fetchMore, previousData, error } = usePostsQuery({
+  const { data, loading, fetchMore, previousData, error } = useTweetsQuery({
     variables: {
-      take: 5,
-      skip: 0,
+      take: 10,
+      cursor: {
+        id: 1,
+      },
     },
     /* pollInterval: 20000, */
     notifyOnNetworkStatusChange: true,
   });
-  console.log(data);
+
+  console.log(data?.tweets);
 
   return (
     <Layout>
-      <Feed tweets={[]} emptyPlaceholder={<p>Nothing to see here...</p>} />
+      {/* TODO: typescript error here  */}
+      {/* @ts-ignore */}
+      {!loading && data ? <Feed tweets={data.tweets} /> : <Spinner />}
     </Layout>
   );
 };

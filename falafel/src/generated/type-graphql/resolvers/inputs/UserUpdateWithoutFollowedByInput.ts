@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CommentsOnTweetsUpdateManyWithoutUserInput } from "../inputs/CommentsOnTweetsUpdateManyWithoutUserInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumUserRoleFieldUpdateOperationsInput } from "../inputs/EnumUserRoleFieldUpdateOperationsInput";
-import { LikesOnTweetsUpdateManyWithoutUserInput } from "../inputs/LikesOnTweetsUpdateManyWithoutUserInput";
-import { RetweetsOnTweetsUpdateManyWithoutUserInput } from "../inputs/RetweetsOnTweetsUpdateManyWithoutUserInput";
+import { LikeUpdateManyWithoutUserInput } from "../inputs/LikeUpdateManyWithoutUserInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { TweetUpdateManyWithoutAuthorInput } from "../inputs/TweetUpdateManyWithoutAuthorInput";
 import { UserUpdateManyWithoutFollowedByInput } from "../inputs/UserUpdateManyWithoutFollowedByInput";
@@ -60,18 +58,8 @@ export class UserUpdateWithoutFollowedByInput {
   })
   tweets?: TweetUpdateManyWithoutAuthorInput | undefined;
 
-  @TypeGraphQL.Field(_type => LikesOnTweetsUpdateManyWithoutUserInput, {
+  @TypeGraphQL.Field(_type => LikeUpdateManyWithoutUserInput, {
     nullable: true
   })
-  likes?: LikesOnTweetsUpdateManyWithoutUserInput | undefined;
-
-  @TypeGraphQL.Field(_type => RetweetsOnTweetsUpdateManyWithoutUserInput, {
-    nullable: true
-  })
-  retweets?: RetweetsOnTweetsUpdateManyWithoutUserInput | undefined;
-
-  @TypeGraphQL.Field(_type => CommentsOnTweetsUpdateManyWithoutUserInput, {
-    nullable: true
-  })
-  comments?: CommentsOnTweetsUpdateManyWithoutUserInput | undefined;
+  likes?: LikeUpdateManyWithoutUserInput | undefined;
 }

@@ -12,91 +12,47 @@ generator typegraphql {
   output   = "../src/generated/type-graphql"
 }
 
-model User {
-  id          Int                @id @default(autoincrement())
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-  username    String             @unique
-  displayname String
-  email       String             @unique
-  /// @TypeGraphQL.omit(output: true)
-  password    String
-  followedBy  User[]             @relation("UserFollows", references: [id])
-  following   User[]             @relation("UserFollows", references: [id])
-  role        UserRole           @default(USER)
-  tweets      Tweet[]
-  likes       LikesOnTweets[]
-  retweets    RetweetsOnTweets[]
-  comments    CommentsOnTweets[]
-}
-
-model Tweet {
-  id               Int                @id @default(autoincrement())
-  createdAt        DateTime           @default(now())
-  text             String
-  image            String?
-  authorId         Int
-  author           User               @relation(fields: [authorId], references: [id])
-  commentAmount    Int                @default(0)
-  retweetAmount    Int                @default(0)
-  likeAmount       Int                @default(0)
-  comments         CommentsOnTweets[]
-  RetweetsOnTweets RetweetsOnTweets[]
-  LikesOnTweets    LikesOnTweets[]
-}
-
-model Comment {
-  id     Int                @id @default(autoincrement())
-  tweets CommentsOnTweets[]
-}
-
-model CommentsOnTweets {
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-  tweetId   Int // relation scalar field (used in the `@relation` attribute above)
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int // relation scalar field (used in the `@relation` attribute above)
-  createdAt DateTime @default(now())
-
-  comment   Comment? @relation(fields: [commentId], references: [id])
-  commentId Int?
-  @@id([tweetId, userId])
-}
-
-model Retweet {
-  id     Int                @id @default(autoincrement())
-  tweets RetweetsOnTweets[]
-}
-
-model RetweetsOnTweets {
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-  tweetId   Int // relation scalar field (used in the `@relation` attribute above)
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int // relation scalar field (used in the `@relation` attribute above)
-  createdAt DateTime @default(now())
-
-  reweet    Retweet? @relation(fields: [retweetId], references: [id])
-  retweetId Int?
-  @@id([tweetId, userId])
-}
-
-model Like {
-  id     Int             @id @default(autoincrement())
-  tweets LikesOnTweets[]
-}
-
-model LikesOnTweets {
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-  tweetId   Int // relation scalar field (used in the `@relation` attribute above)
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int // relation scalar field (used in the `@relation` attribute above)
-  createdAt DateTime @default(now())
-
-  like   Like? @relation(fields: [likeId], references: [id])
-  likeId Int?
-  @@id([tweetId, userId])
-}
-
 enum UserRole {
   USER
   ADMIN
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  username    String   @unique
+  displayname String
+  email       String   @unique
+  /// @TypeGraphQL.omit(output: true)
+  password    String
+  followedBy  User[]   @relation("UserFollows", references: [id])
+  following   User[]   @relation("UserFollows", references: [id])
+  role        UserRole @default(USER)
+  tweets      Tweet[]
+  likes       Like[]
+}
+
+model Tweet {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  text          String
+  image         String?
+  authorId      Int
+  author        User     @relation(fields: [authorId], references: [id])
+  commentAmount Int      @default(0)
+  retweetAmount Int      @default(0)
+  likeAmount    Int      @default(0)
+  likes         Like[]
+
+}
+
+model Like {
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId   Int // relation scalar field (used in the `@relation` attribute above)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt DateTime @default(now())
+
+  @@id([tweetId, userId])
 }

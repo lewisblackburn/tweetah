@@ -2,9 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { CommentsOnTweets } from "../models/CommentsOnTweets";
-import { LikesOnTweets } from "../models/LikesOnTweets";
-import { RetweetsOnTweets } from "../models/RetweetsOnTweets";
+import { Like } from "../models/Like";
 import { Tweet } from "../models/Tweet";
 import { UserRole } from "../enums/UserRole";
 
@@ -55,9 +53,5 @@ export class User {
 
   tweets?: Tweet[];
 
-  likes?: LikesOnTweets[];
-
-  retweets?: RetweetsOnTweets[];
-
-  comments?: CommentsOnTweets[];
+  likes?: Like[];
 }

@@ -10,22 +10,12 @@ import * as argsTypes from "./resolvers/crud/args.index";
 const crudResolversMap = {
   User: crudResolvers.UserCrudResolver,
   Tweet: crudResolvers.TweetCrudResolver,
-  Comment: crudResolvers.CommentCrudResolver,
-  CommentsOnTweets: crudResolvers.CommentsOnTweetsCrudResolver,
-  Retweet: crudResolvers.RetweetCrudResolver,
-  RetweetsOnTweets: crudResolvers.RetweetsOnTweetsCrudResolver,
-  Like: crudResolvers.LikeCrudResolver,
-  LikesOnTweets: crudResolvers.LikesOnTweetsCrudResolver
+  Like: crudResolvers.LikeCrudResolver
 };
 const relationResolversMap = {
   User: relationResolvers.UserRelationsResolver,
   Tweet: relationResolvers.TweetRelationsResolver,
-  Comment: relationResolvers.CommentRelationsResolver,
-  CommentsOnTweets: relationResolvers.CommentsOnTweetsRelationsResolver,
-  Retweet: relationResolvers.RetweetRelationsResolver,
-  RetweetsOnTweets: relationResolvers.RetweetsOnTweetsRelationsResolver,
-  Like: relationResolvers.LikeRelationsResolver,
-  LikesOnTweets: relationResolvers.LikesOnTweetsRelationsResolver
+  Like: relationResolvers.LikeRelationsResolver
 };
 const actionResolversMap = {
   User: {
@@ -52,54 +42,6 @@ const actionResolversMap = {
     upsertTweet: actionResolvers.UpsertTweetResolver,
     aggregateTweet: actionResolvers.AggregateTweetResolver
   },
-  Comment: {
-    comment: actionResolvers.FindUniqueCommentResolver,
-    findFirstComment: actionResolvers.FindFirstCommentResolver,
-    comments: actionResolvers.FindManyCommentResolver,
-    createComment: actionResolvers.CreateCommentResolver,
-    deleteComment: actionResolvers.DeleteCommentResolver,
-    updateComment: actionResolvers.UpdateCommentResolver,
-    deleteManyComment: actionResolvers.DeleteManyCommentResolver,
-    updateManyComment: actionResolvers.UpdateManyCommentResolver,
-    upsertComment: actionResolvers.UpsertCommentResolver,
-    aggregateComment: actionResolvers.AggregateCommentResolver
-  },
-  CommentsOnTweets: {
-    findUniqueCommentsOnTweets: actionResolvers.FindUniqueCommentsOnTweetsResolver,
-    findFirstCommentsOnTweets: actionResolvers.FindFirstCommentsOnTweetsResolver,
-    findManyCommentsOnTweets: actionResolvers.FindManyCommentsOnTweetsResolver,
-    createCommentsOnTweets: actionResolvers.CreateCommentsOnTweetsResolver,
-    deleteCommentsOnTweets: actionResolvers.DeleteCommentsOnTweetsResolver,
-    updateCommentsOnTweets: actionResolvers.UpdateCommentsOnTweetsResolver,
-    deleteManyCommentsOnTweets: actionResolvers.DeleteManyCommentsOnTweetsResolver,
-    updateManyCommentsOnTweets: actionResolvers.UpdateManyCommentsOnTweetsResolver,
-    upsertCommentsOnTweets: actionResolvers.UpsertCommentsOnTweetsResolver,
-    aggregateCommentsOnTweets: actionResolvers.AggregateCommentsOnTweetsResolver
-  },
-  Retweet: {
-    retweet: actionResolvers.FindUniqueRetweetResolver,
-    findFirstRetweet: actionResolvers.FindFirstRetweetResolver,
-    retweets: actionResolvers.FindManyRetweetResolver,
-    createRetweet: actionResolvers.CreateRetweetResolver,
-    deleteRetweet: actionResolvers.DeleteRetweetResolver,
-    updateRetweet: actionResolvers.UpdateRetweetResolver,
-    deleteManyRetweet: actionResolvers.DeleteManyRetweetResolver,
-    updateManyRetweet: actionResolvers.UpdateManyRetweetResolver,
-    upsertRetweet: actionResolvers.UpsertRetweetResolver,
-    aggregateRetweet: actionResolvers.AggregateRetweetResolver
-  },
-  RetweetsOnTweets: {
-    findUniqueRetweetsOnTweets: actionResolvers.FindUniqueRetweetsOnTweetsResolver,
-    findFirstRetweetsOnTweets: actionResolvers.FindFirstRetweetsOnTweetsResolver,
-    findManyRetweetsOnTweets: actionResolvers.FindManyRetweetsOnTweetsResolver,
-    createRetweetsOnTweets: actionResolvers.CreateRetweetsOnTweetsResolver,
-    deleteRetweetsOnTweets: actionResolvers.DeleteRetweetsOnTweetsResolver,
-    updateRetweetsOnTweets: actionResolvers.UpdateRetweetsOnTweetsResolver,
-    deleteManyRetweetsOnTweets: actionResolvers.DeleteManyRetweetsOnTweetsResolver,
-    updateManyRetweetsOnTweets: actionResolvers.UpdateManyRetweetsOnTweetsResolver,
-    upsertRetweetsOnTweets: actionResolvers.UpsertRetweetsOnTweetsResolver,
-    aggregateRetweetsOnTweets: actionResolvers.AggregateRetweetsOnTweetsResolver
-  },
   Like: {
     like: actionResolvers.FindUniqueLikeResolver,
     findFirstLike: actionResolvers.FindFirstLikeResolver,
@@ -111,18 +53,6 @@ const actionResolversMap = {
     updateManyLike: actionResolvers.UpdateManyLikeResolver,
     upsertLike: actionResolvers.UpsertLikeResolver,
     aggregateLike: actionResolvers.AggregateLikeResolver
-  },
-  LikesOnTweets: {
-    findUniqueLikesOnTweets: actionResolvers.FindUniqueLikesOnTweetsResolver,
-    findFirstLikesOnTweets: actionResolvers.FindFirstLikesOnTweetsResolver,
-    findManyLikesOnTweets: actionResolvers.FindManyLikesOnTweetsResolver,
-    createLikesOnTweets: actionResolvers.CreateLikesOnTweetsResolver,
-    deleteLikesOnTweets: actionResolvers.DeleteLikesOnTweetsResolver,
-    updateLikesOnTweets: actionResolvers.UpdateLikesOnTweetsResolver,
-    deleteManyLikesOnTweets: actionResolvers.DeleteManyLikesOnTweetsResolver,
-    updateManyLikesOnTweets: actionResolvers.UpdateManyLikesOnTweetsResolver,
-    upsertLikesOnTweets: actionResolvers.UpsertLikesOnTweetsResolver,
-    aggregateLikesOnTweets: actionResolvers.AggregateLikesOnTweetsResolver
   }
 };
 

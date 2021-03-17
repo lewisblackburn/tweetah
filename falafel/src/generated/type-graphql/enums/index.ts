@@ -1,10 +1,5 @@
-export { CommentScalarFieldEnum } from "./CommentScalarFieldEnum";
-export { CommentsOnTweetsScalarFieldEnum } from "./CommentsOnTweetsScalarFieldEnum";
 export { LikeScalarFieldEnum } from "./LikeScalarFieldEnum";
-export { LikesOnTweetsScalarFieldEnum } from "./LikesOnTweetsScalarFieldEnum";
 export { QueryMode } from "./QueryMode";
-export { RetweetScalarFieldEnum } from "./RetweetScalarFieldEnum";
-export { RetweetsOnTweetsScalarFieldEnum } from "./RetweetsOnTweetsScalarFieldEnum";
 export { SortOrder } from "./SortOrder";
 export { TweetScalarFieldEnum } from "./TweetScalarFieldEnum";
 export { UserRole } from "./UserRole";

@@ -2,9 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CommentsOnTweetsCreateNestedManyWithoutTweetInput } from "../inputs/CommentsOnTweetsCreateNestedManyWithoutTweetInput";
-import { LikesOnTweetsCreateNestedManyWithoutTweetInput } from "../inputs/LikesOnTweetsCreateNestedManyWithoutTweetInput";
-import { RetweetsOnTweetsCreateNestedManyWithoutTweetInput } from "../inputs/RetweetsOnTweetsCreateNestedManyWithoutTweetInput";
+import { LikeCreateNestedManyWithoutTweetInput } from "../inputs/LikeCreateNestedManyWithoutTweetInput";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -40,18 +38,8 @@ export class TweetCreateWithoutAuthorInput {
   })
   likeAmount?: number | undefined;
 
-  @TypeGraphQL.Field(_type => CommentsOnTweetsCreateNestedManyWithoutTweetInput, {
+  @TypeGraphQL.Field(_type => LikeCreateNestedManyWithoutTweetInput, {
     nullable: true
   })
-  comments?: CommentsOnTweetsCreateNestedManyWithoutTweetInput | undefined;
-
-  @TypeGraphQL.Field(_type => RetweetsOnTweetsCreateNestedManyWithoutTweetInput, {
-    nullable: true
-  })
-  RetweetsOnTweets?: RetweetsOnTweetsCreateNestedManyWithoutTweetInput | undefined;
-
-  @TypeGraphQL.Field(_type => LikesOnTweetsCreateNestedManyWithoutTweetInput, {
-    nullable: true
-  })
-  LikesOnTweets?: LikesOnTweetsCreateNestedManyWithoutTweetInput | undefined;
+  likes?: LikeCreateNestedManyWithoutTweetInput | undefined;
 }

@@ -10,5 +10,10 @@ export class LikeAvgAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
     nullable: false
   })
-  id!: number;
+  tweetId!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
+    nullable: false
+  })
+  userId!: number;
 }
