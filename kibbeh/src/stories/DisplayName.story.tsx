@@ -7,8 +7,8 @@ export default {
   component: DisplayName,
 };
 
-export const TheDisplayName: Story<DisplayNameProps> = ({ displayname }) => (
-  <DisplayName displayname={displayname} />
-);
+export const TheDisplayName: Story<DisplayNameProps> = ({ ...props }) => {
+  return <DisplayName {...props} />;
+};
 
 TheDisplayName.bind({});

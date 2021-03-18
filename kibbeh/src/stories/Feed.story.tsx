@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import src from "../img/avatar.png";
 import { Feed, FeedProps } from "../ui/Feed";
 
 export default {
@@ -7,27 +6,48 @@ export default {
   component: Feed,
 };
 
-export const TheFeed: Story<FeedProps> = ({
+export const Main: Story<FeedProps> = ({
   tweets = [
     {
-      avatar: src,
+      author: {
+        displayname: "displayname",
+        id: 1,
+        username: "username",
+      },
+      authorId: 1,
       commentAmount: 1,
-      createdAt: "unixtimestamp",
-      displayname: "zxffo",
+      id: 1,
+      liked: true,
+      image: null,
+      text: "text",
       likeAmount: 1,
       retweetAmount: 1,
-      text: "teast",
-      username: "zxffo",
+      createdAt: "",
+      likes: {},
     },
   ],
-  emptyPlaceholder = <p>nothing to see here</p>,
-}) => <Feed tweets={tweets} emptyPlaceholder={emptyPlaceholder} />;
+}) => <Feed tweets={tweets} />;
 
-TheFeed.bind({});
+Main.bind({});
 
-export const TheEmptyFeed: Story<FeedProps> = ({
-  tweets = [],
-  emptyPlaceholder = <p>nothing to see here</p>,
-}) => <Feed tweets={tweets} emptyPlaceholder={emptyPlaceholder} />;
+// export const Empty: Story<FeedProps> = ({
+//   title = "Your feed",
+//   actionTitle = "New room",
+//   onActionClicked = () => null,
+//   rooms = [],
+//   emptyPlaceholder = (
+//     <p className="text-primary-100 justify-center">(nothing to see here)</p>
+//   ),
+// }) => (
+//   <div style={{ width: 640 }}>
+//     <Feed
+//       title={title}
+//       actionTitle={actionTitle}
+//       onActionClicked={onActionClicked}
+//       rooms={rooms}
+//       emptyPlaceholder={emptyPlaceholder}
+//     />
+//   </div>
+// );
 
-TheEmptyFeed.bind({});
+// Empty.bind({});

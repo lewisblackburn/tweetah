@@ -1,7 +1,6 @@
 import React from "react";
 import { Tweet } from "../generated/graphql";
 import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
-import { useConvertUnixTimestamp } from "../lib/convertUnixTimeStamp";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
 import { IconButton } from "./IconButton";
@@ -21,8 +20,8 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
         />
         <div className="flex">
           <DisplayName displayname={tweet.author.displayname} />
-          <Username username={tweet.author.username} />-
-          {useConvertUnixTimestamp(tweet.createdAt).date}
+          <Username username={tweet.author.username} />
+          {tweet.createdAt}
         </div>
       </div>
       <div className="flex-col">

@@ -1,4 +1,4 @@
-export const useConvertUnixTimestamp = (timestamp?: string) => {
+export const convertUnixTimestamp = (timestamp?: string) => {
   if (!timestamp) {
     return {
       minutes: null,

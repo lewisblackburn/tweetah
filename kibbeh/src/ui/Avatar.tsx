@@ -25,7 +25,11 @@ export const Avatar: React.FC<AvatarProps> = ({
         height: avatarSizeMap[size],
       }}
     >
-      <img alt="avatar" className="rounded-full w-full h-full" src={src} />
+      <img
+        alt="avatar"
+        className="rounded-full w-full h-full"
+        src={src || "/avatar"}
+      />
     </div>
   );
 };

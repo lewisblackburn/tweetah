@@ -8,8 +8,8 @@ export default {
   component: Avatar,
 };
 
-export const TheAvatar: Story<AvatarProps> = ({ ...props }) => (
-  <Avatar {...props} src={src} />
-);
+export const TheAvatar: Story<AvatarProps> = ({ ...props }) => {
+  return <Avatar {...props} src={src} />;
+};
 
 TheAvatar.bind({});
