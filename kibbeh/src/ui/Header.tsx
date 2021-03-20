@@ -12,18 +12,20 @@ import { Button } from "./Button";
 import AutoTextArea from "./Form/AutoTextArea";
 import { IconButton } from "./IconButton";
 
-interface HeaderProps {}
+export interface HeaderProps {
+  src: string;
+}
 
-export const Header: React.FC<HeaderProps> = ({}) => {
+export const Header: React.FC<HeaderProps> = ({ src }) => {
   return (
-    <header className="bg-black text-xl font-bold flex-col items-center justify-between">
-      <div className="flex items-center justify-between">
+    <header className="bg-black text-xl font-bold flex-col items-center justify-between py-6">
+      <div className="flex items-center justify-between pb-6">
         <span>Home</span>
         <IconButton icon={<SparkleIcon />} />
       </div>
-      <div className="flex px-4 py-6 border-t-2 border-gray-900">
+      <div className="flex">
         <div className="mr-4">
-          <Avatar size="sm" src="/avatar.png" />
+          <Avatar size="sm" src={src} />
         </div>
         <div className="flex-col flex-1">
           <div className="grow-wrap">

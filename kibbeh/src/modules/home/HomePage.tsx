@@ -1,20 +1,26 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { useTweetsQuery } from "../../generated/graphql";
 import { Feed } from "../../ui/Feed";
 import { Layout } from "../../ui/Layout";
 import { Spinner } from "../../ui/Spinner";
-import { useVerifyLoggedIn } from "../auth/useVerifyLoggedIn";
+import { isAuth } from "../auth/isAuth";
 
-interface LoungePageProps {}
+interface HomePageProps {}
 
-export const LoungePage: React.FC<LoungePageProps> = ({}) => {
-  if (!useVerifyLoggedIn()) {
-    return null;
-  }
+export const HomePage: React.FC<HomePageProps> = ({}) => {
+  const { replace, pathname } = useRouter();
+  const user = isAuth();
+
+  useEffect(() => {
+    if (!user) {
+      replace(`/`);
+    }
+  }, [user, pathname, replace]);
 
   const { data, loading, fetchMore, previousData, error } = useTweetsQuery({
     variables: {
-      take: 10,
+      take: 30,
       cursor: {
         id: 1,
       },
@@ -27,8 +33,6 @@ export const LoungePage: React.FC<LoungePageProps> = ({}) => {
 
   return (
     <Layout>
-      {/* TODO: typescript error here  */}
-      {/* @ts-ignore */}
       {!loading && data ? <Feed tweets={data.tweets} /> : <Spinner />}
     </Layout>
   );

@@ -518,7 +518,7 @@ export type RegularTweetFragment = (
 
 export type RegularUserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'email' | 'role'>
+  & Pick<User, 'id' | 'username' | 'displayname' | 'email' | 'role'>
 );
 
 export type CreateTweetMutationVariables = Exact<{
@@ -757,6 +757,7 @@ export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   id
   username
+  displayname
   email
   role
 }

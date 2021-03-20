@@ -11,7 +11,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Sidebar />
       </div>
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-3xl break-words">
-        <Header />
+        <Header src="/avatar.png" />
         {children}
       </div>
     </div>

@@ -1,6 +1,7 @@
 fragment RegularUser on User {
   id
   username
+  displayname
   email
   role
 }

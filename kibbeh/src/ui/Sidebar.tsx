@@ -8,11 +8,10 @@ import {
   BookmarkIcon,
   DotsCircleIcon,
   HashIcon,
-  HomeIcon,
   ListIcon,
+  LogoutIcon,
   MailIcon,
   PersonIcon,
-  SparkleIcon,
   TwitterIcon,
 } from "../icons";
 import { Icon } from "./Icon";
@@ -20,53 +19,79 @@ import { IconButton } from "./IconButton";
 
 export interface SidebarProps {}
 
-const navigation = [
-  { title: "Home", Icon: <HomeIcon width={24} height={24} /> },
-  { title: "Explore", Icon: <HashIcon width={24} height={24} /> },
-  { title: "Notification", Icon: <BellIcon width={24} height={24} /> },
-  { title: "Message", Icon: <MailIcon width={24} height={24} /> },
-  { title: "Bookmarks", Icon: <BookmarkIcon width={24} height={24} /> },
-  { title: "Lists", Icon: <ListIcon width={24} height={24} /> },
-  { title: "Profile", Icon: <PersonIcon width={24} height={24} /> },
-  { title: "More", Icon: <DotsCircleIcon width={24} height={24} /> },
-];
-
 export const Sidebar: React.FC<SidebarProps> = ({}) => {
   const router = useRouter();
-  const [logout, loading] = useLogoutMutation();
+  const [logout, { loading }] = useLogoutMutation();
   const apolloClient = useApolloClient();
 
   return (
-    <aside className="flex flex-col items-center text-gray-700 shadow h-screen">
-      <div className="h-16 flex items-center w-full">
-        <Link href="/lounge">
-          <a className="h-6 w-6 mx-auto">
-            <TwitterIcon width={24} height={24} />
+    <ul className="flex flex-col items-center space-y-8 text-gray-700 shadow h-screen p-8">
+      <li>
+        <Link href="/home">
+          <a>
+            <Icon icon={<TwitterIcon width={24} height={24} />} />
           </a>
         </Link>
-      </div>
-      <ul>
-        {navigation.map((item, index) => (
-          <li key={index} className="hover:bg-gray-100">
-            <Link href="/lounge">
-              <div>
-                <Icon icon={item.Icon} />
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-auto h-16 flex items-center w-full">
+      </li>
+      <li>
+        <Link href="/explore">
+          <a>
+            <Icon icon={<HashIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/notifications">
+          <a>
+            <Icon icon={<BellIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/messages">
+          <a>
+            <Icon icon={<MailIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/bookmarks">
+          <a>
+            <Icon icon={<BookmarkIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/lists">
+          <a>
+            <Icon icon={<ListIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/profile">
+          <a>
+            <Icon icon={<PersonIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/more">
+          <a>
+            <Icon icon={<DotsCircleIcon width={24} height={24} />} />
+          </a>
+        </Link>
+      </li>
+      <li className="">
         <IconButton
-          onClick={() => {
-            router.replace("/?next=" + router.asPath).then(async () => {
-              await apolloClient.resetStore();
-              logout();
-            });
+          onClick={async () => {
+            await logout();
+            await apolloClient.resetStore();
           }}
-          icon={<SparkleIcon width={24} height={24} />}
+          loading={loading}
+          icon={<LogoutIcon width={24} height={24} />}
         />
-      </div>
-    </aside>
+      </li>
+    </ul>
   );
 };

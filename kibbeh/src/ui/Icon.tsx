@@ -1,15 +1,13 @@
 import React, { ReactNode } from "react";
 
-interface IconProps {
+export interface IconProps {
   icon: ReactNode;
+  className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({ icon }) => {
+export const Icon: React.FC<IconProps> = ({ icon, className = "" }) => {
   return (
-    <div
-      className="hover:bg-gray-100 h-16 px-6 flex justify-center items-center w-full
-					focus:text-orange-500"
-    >
+    <div className={`container flex justify-center items-center ${className}`}>
       {icon}
     </div>
   );

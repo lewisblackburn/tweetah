@@ -16,6 +16,7 @@ export { default as HomeIcon } from "./HomeIcon";
 export { default as LinkIcon } from "./LinkIcon";
 export { default as ListIcon } from "./ListIcon";
 export { default as LocationIcon } from "./LocationIcon";
+export { default as LogoutIcon } from "./LogoutIcon";
 export { default as MailIcon } from "./MailIcon";
 export { default as PersonIcon } from "./PersonIcon";
 export { default as PhotoIcon } from "./PhotoIcon";

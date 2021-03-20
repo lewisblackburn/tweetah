@@ -1,5 +1,5 @@
 import React from "react";
-import { Tweet } from "../generated/graphql";
+import { RegularTweetFragment } from "../generated/graphql";
 import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
@@ -7,7 +7,7 @@ import { IconButton } from "./IconButton";
 import { Username } from "./Username";
 
 export interface TweetCardProps {
-  tweet: Tweet;
+  tweet: RegularTweetFragment;
 }
 
 export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {

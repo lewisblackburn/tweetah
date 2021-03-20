@@ -1,9 +1,9 @@
 import React from "react";
-import { Tweet } from "../generated/graphql";
+import { RegularTweetFragment } from "../generated/graphql";
 import { TweetCard } from "./TweetCard";
 
 export interface FeedProps {
-  tweets: Tweet[];
+  tweets: RegularTweetFragment[];
 }
 
 export const Feed: React.FC<FeedProps> = ({ tweets }) => {
