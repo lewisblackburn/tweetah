@@ -12,7 +12,7 @@ export const parseDate = (tdate: any) => {
     return diff + "s";
   }
   if (diff < 60) {
-    return "less than a minute ago";
+    return " less than a minute ago";
   }
   if (diff <= 3540) {
     return Math.round(diff / 60) + "m";
