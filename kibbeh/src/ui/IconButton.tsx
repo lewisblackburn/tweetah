@@ -25,7 +25,11 @@ export const IconButton: React.FC<IconButtonProps> = ({
   ...props
 }) => {
   return (
-    <button disabled={loading || disabled} className={className} {...props}>
+    <button
+      disabled={loading || disabled}
+      className={`flex items-center ${className}`}
+      {...props}
+    >
       {loading ? (
         <Spinner size="4" />
       ) : (
