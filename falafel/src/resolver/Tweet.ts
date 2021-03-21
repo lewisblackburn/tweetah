@@ -64,8 +64,9 @@ export class TweetResolver {
           in: userIds,
         },
       },
-      take,
+      orderBy: { createdAt: "asc" },
       cursor,
+      take,
       skip: 1,
     });
   }
