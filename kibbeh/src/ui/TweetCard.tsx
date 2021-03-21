@@ -17,7 +17,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
       <div className="flex items-center space-x-4 py-4">
         <Avatar
           src={`${apiBaseUrl}/../images/${tweet.author.id}/avatar.png`}
-          size="sm"
+          size="xs"
         />
         <div className="flex">
           <DisplayName displayname={tweet.author.displayname} />

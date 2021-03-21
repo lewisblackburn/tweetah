@@ -3,8 +3,8 @@ import { LazyImage } from "./LazyImage";
 
 const avatarSizeMap = {
   default: "80px",
-  sm: "40px",
-  xs: "20px",
+  sm: "50px",
+  xs: "40px",
 };
 
 export interface AvatarProps {

@@ -17,20 +17,22 @@ export interface HeaderProps {}
 export const Header: React.FC<HeaderProps> = ({}) => {
   const { data } = useMeQuery();
   return (
-    <header className="flex text-xl font-bold items-center justify-between pb-8">
-      <div className="mr-4">
-        <Avatar
-          size="sm"
-          src={`${apiBaseUrl}/../images/${data?.me?.id}/avatar.png`}
-        />
-      </div>
-      <div className="flex-col flex-1">
-        <div className="grow-wrap">
+    <header className="flex-col text-xl font-bold items-center justify-between pb-8">
+      <div className="flex">
+        <div>
+          <Avatar
+            size="sm"
+            src={`${apiBaseUrl}/../images/${data?.me?.id}/avatar.png`}
+          />
+        </div>
+        <div className="self-center grow-wrap ml-4 w-full">
           <AutoTextArea
             className="bg-transparent text-lg resize-none w-full"
             placeholder="What's happening?"
           />
         </div>
+      </div>
+      <div className="flex-col flex-1">
         <div className="flex items-center justify-between">
           <ul className="flex text-sm text-primary">
             <li className="mr-4">
