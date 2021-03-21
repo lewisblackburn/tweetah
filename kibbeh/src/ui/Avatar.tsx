@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "./Image";
 
 const avatarSizeMap = {
   default: "80px",
@@ -25,11 +26,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         height: avatarSizeMap[size],
       }}
     >
-      <img
-        alt="avatar"
-        className="rounded-full w-full h-full"
-        src={src || "/avatar"}
-      />
+      <Image alt="avatar" className="rounded-full w-full h-full" src={src} />
     </div>
   );
 };
