@@ -33,8 +33,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
       {loading ? (
         <Spinner size="4" />
       ) : (
-        <div className="flex items-center">
-          <Icon icon={icon} className="m-2" />
+        <div className="flex items-center m-2">
+          <Icon icon={icon} className="mr-2" />
           {number && kFormatter(number)}
         </div>
       )}
