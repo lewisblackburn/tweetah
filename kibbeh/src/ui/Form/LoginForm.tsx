@@ -1,4 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { MeDocument, MeQuery, useLoginMutation } from "../../generated/graphql";
 import { toErrorMap } from "../../lib/toErrorMap";
@@ -13,6 +14,7 @@ interface Values {
 }
 
 export const LoginForm: React.FC<LoginProps> = ({}) => {
+  const router = useRouter();
   const [login] = useLoginMutation();
 
   return (
@@ -40,13 +42,21 @@ export const LoginForm: React.FC<LoginProps> = ({}) => {
             });
             cache.evict({ fieldName: "tweets:{}" });
           },
-        }).catch((e: any) => {
-          if (e.graphQLErrors[0].extensions.exception.validationErrors)
-            setErrors(toErrorMap(e));
-          else {
-            setErrors({ password: e.message });
-          }
-        });
+        })
+          .then(() => {
+            if (typeof router.query.next === "string") {
+              router.push(router.query.next);
+            } else {
+              router.push("/");
+            }
+          })
+          .catch((e: any) => {
+            if (e.graphQLErrors[0].extensions.exception.validationErrors)
+              setErrors(toErrorMap(e));
+            else {
+              setErrors({ password: e.message });
+            }
+          });
         setSubmitting(false);
       }}
     >
