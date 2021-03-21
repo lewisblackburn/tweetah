@@ -47,7 +47,7 @@ const main = async () => {
   // });
 
   prisma.$use((params, next) => {
-    const limit = 30;
+    const limit = 20;
     const isNested = params.args.select;
     const isFindMany = params.action === "findMany";
     if (!isNested && !isFindMany) return next(params);

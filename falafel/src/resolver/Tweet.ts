@@ -10,7 +10,7 @@ import {
   Resolver,
   Root,
 } from "type-graphql";
-import { Tweet, TweetWhereUniqueInput } from "../generated/type-graphql";
+import { Tweet } from "../generated/type-graphql";
 import { Context } from "../interfaces/context";
 
 @Resolver(Tweet)
@@ -49,7 +49,7 @@ export class TweetResolver {
   async tweets(
     @Ctx() ctx: Context,
     @Arg("take", (type) => Int) take: number,
-    @Arg("cursor") cursor: TweetWhereUniqueInput
+    @Arg("offset", (type) => Int) offset: number
   ): Promise<Tweet[]> {
     const userId = ctx.req.session.userId || -1;
     const users = await ctx.prisma.user
@@ -64,10 +64,9 @@ export class TweetResolver {
           in: userIds,
         },
       },
-      orderBy: { createdAt: "asc" },
-      cursor,
+      orderBy: { createdAt: "desc" },
       take,
-      skip: 1,
+      skip: offset,
     });
   }
 

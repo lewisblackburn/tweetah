@@ -1,5 +1,5 @@
-query Tweets($take: Int!, $cursor: TweetWhereUniqueInput!) {
-  tweets (take: $take, cursor: $cursor) {
+query Tweets($take: Int!, $offset: Int!) {
+  tweets(take: $take, offset: $offset) {
     ...RegularTweet
   }
 }

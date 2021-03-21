@@ -12,9 +12,7 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
   const { data, loading, fetchMore, previousData, error } = useTweetsQuery({
     variables: {
       take: 30,
-      cursor: {
-        id: 1,
-      },
+      offset: 0,
     },
     /* pollInterval: 20000, */
     notifyOnNetworkStatusChange: true,

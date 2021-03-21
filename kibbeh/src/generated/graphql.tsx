@@ -46,7 +46,7 @@ export type QueryTweetArgs = {
 
 
 export type QueryTweetsArgs = {
-  cursor: TweetWhereUniqueInput;
+  offset: Scalars['Int'];
   take: Scalars['Int'];
 };
 
@@ -704,7 +704,7 @@ export type TweetQuery = (
 
 export type TweetsQueryVariables = Exact<{
   take: Scalars['Int'];
-  cursor: TweetWhereUniqueInput;
+  offset: Scalars['Int'];
 }>;
 
 
@@ -1242,8 +1242,8 @@ export type TweetQueryHookResult = ReturnType<typeof useTweetQuery>;
 export type TweetLazyQueryHookResult = ReturnType<typeof useTweetLazyQuery>;
 export type TweetQueryResult = Apollo.QueryResult<TweetQuery, TweetQueryVariables>;
 export const TweetsDocument = gql`
-    query Tweets($take: Int!, $cursor: TweetWhereUniqueInput!) {
-  tweets(take: $take, cursor: $cursor) {
+    query Tweets($take: Int!, $offset: Int!) {
+  tweets(take: $take, offset: $offset) {
     ...RegularTweet
   }
 }
@@ -1262,7 +1262,7 @@ export const TweetsDocument = gql`
  * const { data, loading, error } = useTweetsQuery({
  *   variables: {
  *      take: // value for 'take'
- *      cursor: // value for 'cursor'
+ *      offset: // value for 'offset'
  *   },
  * });
  */
