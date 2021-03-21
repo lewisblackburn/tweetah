@@ -2,6 +2,7 @@ import React from "react";
 import { RegularTweetFragment } from "../generated/graphql";
 import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
 import { apiBaseUrl } from "../lib/constants";
+import { parseDate } from "../lib/parseDate";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
 import { IconButton } from "./IconButton";
@@ -22,7 +23,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
         <div className="flex">
           <DisplayName displayname={tweet.author.displayname} />
           <Username username={tweet.author.username} />
-          {tweet.createdAt}
+          {parseDate(tweet.createdAt)}
         </div>
       </div>
       <div className="flex-col">
