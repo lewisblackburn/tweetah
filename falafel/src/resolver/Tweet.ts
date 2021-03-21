@@ -61,7 +61,7 @@ export class TweetResolver {
     return ctx.prisma.tweet.findMany({
       where: {
         authorId: {
-          in: userIds,
+          in: [userId, ...userIds],
         },
       },
       orderBy: { createdAt: "desc" },
