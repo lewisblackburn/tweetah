@@ -24,6 +24,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   className = "",
   ...props
 }) => {
+  console.log(number);
   return (
     <button
       disabled={loading || disabled}
@@ -33,8 +34,12 @@ export const IconButton: React.FC<IconButtonProps> = ({
       {loading ? (
         <Spinner size="4" />
       ) : (
-        <div className="flex items-center m-2">
-          <Icon icon={icon} className="mr-2" />
+        <div
+          className={`grid ${
+            number !== undefined ? "grid-cols-2" : "grid-cols-1"
+          } items-center m-2 gap-2`}
+        >
+          <Icon icon={icon} />
           {number && kFormatter(number)}
         </div>
       )}
