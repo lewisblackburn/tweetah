@@ -10,7 +10,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="fixed top-0">
         <Sidebar />
       </div>
-      <div className="ml-16 max-w-xl break-words p-8">
+      <div className="ml-20 max-w-xl break-words p-8">
         <Header />
         {children}
       </div>
