@@ -1,10 +1,10 @@
-import { PostsQuery } from "generated/graphql";
+import { TweetsQuery } from "../../generated/graphql";
 
-export const useFetchMorePosts = (
-  data: PostsQuery | undefined,
+export const useFetchMoreTweets = (
+  data: TweetsQuery | undefined,
   loading: boolean,
   fetchMore: any,
-  previousData: PostsQuery | undefined
+  previousData: TweetsQuery | undefined
 ) => {
   if (process.browser) {
     window.onscroll = function () {
@@ -15,14 +15,14 @@ export const useFetchMorePosts = (
         if (!loading && data) {
           // you're at the bottom of the page
           //
-          if (previousData?.posts.length === (data?.posts.length || 0) - 1)
-            return false;
-          fetchMore({
-            variables: {
-              take: 10,
-              skip: data?.posts.length,
-            },
-          });
+          if (previousData?.tweets.length !== (data?.tweets.length || 0) - 1) {
+            fetchMore({
+              variables: {
+                take: 10,
+                offset: data?.tweets.length,
+              },
+            });
+          }
         }
       }
     };

@@ -21,7 +21,7 @@ const createClient = (ctx?: NextPageContext) =>
         Query: {
           fields: {
             tweets: {
-              keyArgs: false,
+              keyArgs: [],
               merge(existing = [], incoming) {
                 return [...existing, ...incoming];
               },
