@@ -1,4 +1,5 @@
 import React from "react";
+import { useMeQuery } from "../generated/graphql";
 import {
   CalendarIcon,
   ChartIcon,
@@ -6,6 +7,7 @@ import {
   GifIcon,
   PhotoIcon,
 } from "../icons";
+import { apiBaseUrl } from "../lib/constants";
 import { Avatar } from "./Avatar";
 import { Button } from "./Button";
 import AutoTextArea from "./Form/AutoTextArea";
@@ -13,10 +15,14 @@ import AutoTextArea from "./Form/AutoTextArea";
 export interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
+  const { data } = useMeQuery();
   return (
     <header className="flex text-xl font-bold items-center justify-between pb-8">
       <div className="mr-4">
-        <Avatar size="sm" src={"/avatar.png"} />
+        <Avatar
+          size="sm"
+          src={`${apiBaseUrl}/../images/${data?.me?.id}/avatar.png`}
+        />
       </div>
       <div className="flex-col flex-1">
         <div className="grow-wrap">

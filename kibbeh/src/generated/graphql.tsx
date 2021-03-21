@@ -668,7 +668,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & RegularAuthorFragment
+    & RegularUserFragment
   )> }
 );
 
@@ -1137,10 +1137,10 @@ export type LikesQueryResult = Apollo.QueryResult<LikesQuery, LikesQueryVariable
 export const MeDocument = gql`
     query Me {
   me {
-    ...RegularAuthor
+    ...RegularUser
   }
 }
-    ${RegularAuthorFragmentDoc}`;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useMeQuery__

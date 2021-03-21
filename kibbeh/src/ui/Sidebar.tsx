@@ -1,6 +1,5 @@
 import { useApolloClient } from "@apollo/client";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation } from "../generated/graphql";
 import {
@@ -20,7 +19,6 @@ import { IconButton } from "./IconButton";
 export interface SidebarProps {}
 
 export const Sidebar: React.FC<SidebarProps> = ({}) => {
-  const router = useRouter();
   const [logout, { loading }] = useLogoutMutation();
   const apolloClient = useApolloClient();
 
