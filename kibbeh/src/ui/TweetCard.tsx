@@ -1,6 +1,7 @@
 import React from "react";
 import { RegularTweetFragment } from "../generated/graphql";
 import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
+import { apiBaseUrl } from "../lib/constants";
 import { Avatar } from "./Avatar";
 import { DisplayName } from "./DisplayName";
 import { IconButton } from "./IconButton";
@@ -15,7 +16,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
     <article key={tweet.id} className="border-b border-t border-gray-900">
       <div className="flex items-center space-x-4 py-4">
         <Avatar
-          src={`http://localhost:4000/images/${tweet.author.id}/avatar.png`}
+          src={`${apiBaseUrl}/../images/${tweet.author.id}/avatar.png`}
           size="sm"
         />
         <div className="flex">

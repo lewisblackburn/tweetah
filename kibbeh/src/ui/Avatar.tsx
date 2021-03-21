@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "./Image";
+import { LazyImage } from "./LazyImage";
 
 const avatarSizeMap = {
   default: "80px",
@@ -26,7 +26,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         height: avatarSizeMap[size],
       }}
     >
-      <Image alt="avatar" className="rounded-full w-full h-full" src={src} />
+      <LazyImage alt="avatar" className="rounded-full" src={src} />
     </div>
   );
 };

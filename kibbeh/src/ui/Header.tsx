@@ -10,15 +10,13 @@ import { Avatar } from "./Avatar";
 import { Button } from "./Button";
 import AutoTextArea from "./Form/AutoTextArea";
 
-export interface HeaderProps {
-  src: string;
-}
+export interface HeaderProps {}
 
-export const Header: React.FC<HeaderProps> = ({ src }) => {
+export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <header className="flex text-xl font-bold items-center justify-between pb-8">
       <div className="mr-4">
-        <Avatar size="sm" src={src} />
+        <Avatar size="sm" src={"/avatar.png"} />
       </div>
       <div className="flex-col flex-1">
         <div className="grow-wrap">

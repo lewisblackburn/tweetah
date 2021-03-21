@@ -29,8 +29,6 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
     notifyOnNetworkStatusChange: true,
   });
 
-  console.log(data?.tweets);
-
   return (
     <Layout>
       {!loading && data ? <Feed tweets={data.tweets} /> : <Spinner />}
