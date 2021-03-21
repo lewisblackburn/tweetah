@@ -25,7 +25,7 @@ export const Sidebar: React.FC<SidebarProps> = ({}) => {
   const apolloClient = useApolloClient();
 
   return (
-    <ul className="flex flex-col items-center justify-between space-y-8 text-gray-700 shadow h-screen p-8">
+    <ul className="flex flex-col items-center justify-between text-gray-700 shadow h-screen p-8">
       <li>
         <Link href="/home">
           <a>

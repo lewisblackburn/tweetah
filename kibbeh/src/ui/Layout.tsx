@@ -6,11 +6,11 @@ export interface LayoutProps {}
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="grid justify-center min-h-screen bg-black text-white">
+    <div className="grid min-h-screen bg-black text-white">
       <div className="fixed top-0">
         <Sidebar />
       </div>
-      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-3xl break-words">
+      <div className="ml-16 break-words p-8">
         <Header src="/avatar.png" />
         {children}
       </div>
