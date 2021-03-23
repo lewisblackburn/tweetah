@@ -20,9 +20,6 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
   });
   useFetchMoreTweets(data, loading, fetchMore, previousData);
 
-  // TODO: fix loading spinner on load posts
-  // TODO: message when no more tweets
-
   return (
     <Layout>
       {!data && loading ? (
@@ -32,6 +29,13 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
       ) : (
         <div>
           <Feed tweets={data!.tweets} />
+          <div className="grid place-items-center pt-8">
+            {previousData?.tweets.length !== (data?.tweets.length || 0) - 1 ? (
+              <Spinner />
+            ) : (
+              <p>You're all caught up</p>
+            )}
+          </div>
         </div>
       )}
     </Layout>

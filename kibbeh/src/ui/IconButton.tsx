@@ -24,7 +24,6 @@ export const IconButton: React.FC<IconButtonProps> = ({
   className = "",
   ...props
 }) => {
-  console.log(number);
   return (
     <button
       disabled={loading || disabled}

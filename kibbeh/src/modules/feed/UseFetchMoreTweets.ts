@@ -10,11 +10,10 @@ export const useFetchMoreTweets = (
     window.onscroll = function () {
       if (
         window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 0
+        document.body.scrollHeight - 0 // when to refetch relative to bottom of page
       ) {
         if (!loading && data) {
           // you're at the bottom of the page
-          //
           if (previousData?.tweets.length !== (data?.tweets.length || 0) - 1) {
             fetchMore({
               variables: {
