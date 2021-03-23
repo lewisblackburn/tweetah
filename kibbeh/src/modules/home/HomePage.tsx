@@ -20,7 +20,7 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
   });
   useFetchMoreTweets(data, loading, fetchMore, previousData);
 
-  // TODO: fix loading spinnes
+  // TODO: fix loading spinner on load posts
   // TODO: message when no more tweets
 
   return (

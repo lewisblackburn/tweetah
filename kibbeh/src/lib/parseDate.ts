@@ -1,9 +1,6 @@
 export const parseDate = (tdate: any) => {
   var system_date: any = new Date(Date.parse(tdate));
   var user_date: any = new Date();
-  // if (K.ie) {
-  //   system_date = Date.parse(tdate.replace(/( \+)/, " UTC$1"));
-  // }
   var diff = Math.floor((user_date - system_date) / 1000);
   if (diff <= 1) {
     return "just now";
@@ -28,11 +25,3 @@ export const parseDate = (tdate: any) => {
   }
   return "on " + system_date;
 };
-
-// from http://widgets.twimg.com/j/1/widget.js
-// var K = (function () {
-//   var a = navigator.userAgent;
-//   return {
-//     ie: a.match(/MSIE\s([^;]*)/),
-//   };
-// })();

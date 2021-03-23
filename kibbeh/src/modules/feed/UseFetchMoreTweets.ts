@@ -10,7 +10,7 @@ export const useFetchMoreTweets = (
     window.onscroll = function () {
       if (
         window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 100
+        document.body.scrollHeight - 0
       ) {
         if (!loading && data) {
           // you're at the bottom of the page
