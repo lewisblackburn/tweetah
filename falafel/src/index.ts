@@ -33,18 +33,18 @@ const main = async () => {
   const PORT = parseInt(process.env.PORT || "4000");
 
   const prisma = new PrismaClient({
-    // log: ["query", `warn`, `error`],
+    log: ["query", `warn`, `error`],
   });
 
-  prisma.$use(async (params, next) => {
-    const before = Date.now();
-    const result = await next(params);
-    const after = Date.now();
-    console.log(
-      `Query ${params.model}.${params.action} took ${after - before}ms`
-    );
-    return result;
-  });
+  // prisma.$use(async (params, next) => {
+  //   const before = Date.now();
+  //   const result = await next(params);
+  //   const after = Date.now();
+  //   console.log(
+  //     `Query ${params.model}.${params.action} took ${after - before}ms`
+  //   );
+  //   return result;
+  // });
 
   prisma.$use((params, next) => {
     const limit = 20;
