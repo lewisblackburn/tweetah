@@ -56,8 +56,14 @@ export class TweetResolver {
       .findUnique({
         where: { id: userId },
       })
-      .following({});
+      .following({
+        select: {
+          id: true,
+        },
+      });
     const userIds = users.map((x) => x.id);
+    // const count = await ctx.prisma.user.count()
+    // const hasMore = typeof take === "number" ? skip + take < count : false
     return ctx.prisma.tweet.findMany({
       where: {
         authorId: {

@@ -14,16 +14,18 @@ export interface TweetCardProps {
 
 export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
   return (
-    <article key={tweet.id} className="border-b border-t border-gray-900">
+    <article key={tweet.id}>
       <div className="flex items-center space-x-4 py-4">
         <Avatar
           src={`${apiBaseUrl}/../images/${tweet.author.id}/avatar.png`}
           size="xs"
         />
-        <div className="flex">
-          <DisplayName displayname={tweet.author.displayname} />
-          <Username username={tweet.author.username} />
-          {parseDate(tweet.createdAt)}
+        <div className="flex space-x-2">
+          <div className="flex">
+            <DisplayName displayname={tweet.author.displayname} />
+            <Username username={tweet.author.username} />
+          </div>
+          <span>{parseDate(tweet.createdAt)}</span>
         </div>
       </div>
       <div className="flex-col">

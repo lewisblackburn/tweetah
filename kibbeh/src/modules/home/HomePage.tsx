@@ -8,6 +8,8 @@ import { useFetchMoreTweets } from "../feed/UseFetchMoreTweets";
 
 interface HomePageProps {}
 
+// TODO: add hasMore to server end
+
 export const HomePage: React.FC<HomePageProps> = ({}) => {
   useVerifyLoggedIn();
   const { data, loading, fetchMore, previousData } = useTweetsQuery({
@@ -20,6 +22,8 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
   });
   useFetchMoreTweets(data, loading, fetchMore, previousData);
 
+  console.log();
+
   return (
     <Layout>
       {!data && loading ? (
@@ -30,10 +34,10 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
         <div>
           <Feed tweets={data!.tweets} />
           <div className="grid place-items-center pt-8">
-            {previousData?.tweets.length !== (data?.tweets.length || 0) - 1 ? (
-              <Spinner />
-            ) : (
+            {previousData?.tweets.length === (data?.tweets.length || 1) - 1 ? (
               <p>You're all caught up</p>
+            ) : (
+              <Spinner />
             )}
           </div>
         </div>
