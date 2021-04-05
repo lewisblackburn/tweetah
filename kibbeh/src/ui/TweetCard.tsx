@@ -1,5 +1,6 @@
-import React from "react";
-import { RegularTweetFragment } from "../generated/graphql";
+import gql from "graphql-tag";
+import React, { useState } from "react";
+import { RegularTweetFragment, useLikeMutation } from "../generated/graphql";
 import { CommentIcon, HeartIcon, RetweetIcon, ShareIcon } from "../icons";
 import { apiBaseUrl } from "../lib/constants";
 import { parseDate } from "../lib/parseDate";
@@ -11,6 +12,56 @@ import { Username } from "./Username";
 export interface TweetCardProps {
   tweet: RegularTweetFragment;
 }
+
+const LikeButton = ({
+  id,
+  liked,
+  likeAmount,
+}: {
+  id: number;
+  liked: boolean;
+  likeAmount: number;
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [like] = useLikeMutation();
+  return (
+    <IconButton
+      icon={
+        <HeartIcon
+          fill={liked ? "#EF4444" : ""}
+          className={liked ? "text-red-500" : ""}
+          width={16}
+          height={16}
+        />
+      }
+      onClick={async () => {
+        setLoading(true);
+        await like({
+          variables: {
+            tweetId: id,
+          },
+          update: (cache) =>
+            cache.writeFragment({
+              id: "Tweet:" + id,
+              fragment: gql`
+                fragment __ on Tweet {
+                  liked
+                  likeAmount
+                }
+              `,
+              data: {
+                liked: !liked,
+                likeAmount: liked ? likeAmount - 1 : likeAmount + 1,
+              },
+            }),
+        });
+        setLoading(false);
+      }}
+      loading={loading}
+      number={likeAmount}
+    />
+  );
+};
 
 export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
   return (
@@ -40,16 +91,10 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
             icon={<RetweetIcon width={16} height={16} />}
             number={tweet.retweetAmount}
           />
-          <IconButton
-            icon={
-              <HeartIcon
-                fill={tweet.liked ? "#EF4444" : ""}
-                className={tweet.liked ? "text-red-500" : ""}
-                width={16}
-                height={16}
-              />
-            }
-            number={tweet.likeAmount}
+          <LikeButton
+            id={tweet.id}
+            liked={tweet.liked}
+            likeAmount={tweet.likeAmount}
           />
           <IconButton icon={<ShareIcon width={16} height={16} />} />
         </div>

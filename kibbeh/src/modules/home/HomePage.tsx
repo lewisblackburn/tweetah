@@ -8,8 +8,6 @@ import { useFetchMoreTweets } from "../feed/UseFetchMoreTweets";
 
 interface HomePageProps {}
 
-// TODO: add hasMore to server end
-
 export const HomePage: React.FC<HomePageProps> = ({}) => {
   useVerifyLoggedIn();
   const { data, loading, fetchMore, previousData } = useTweetsQuery({
@@ -22,8 +20,6 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
   });
   const hasMore = false;
   useFetchMoreTweets(data, loading, fetchMore, previousData);
-
-  console.log(previousData?.tweets.length, data?.tweets.length);
 
   return (
     <Layout>
