@@ -20,9 +20,10 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
     /* pollInterval: 20000, */
     notifyOnNetworkStatusChange: true,
   });
+  const hasMore = true;
   useFetchMoreTweets(data, loading, fetchMore, previousData);
 
-  console.log();
+  console.log(previousData?.tweets.length, data?.tweets.length);
 
   return (
     <Layout>
@@ -34,11 +35,7 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
         <div>
           <Feed tweets={data!.tweets} />
           <div className="grid place-items-center pt-8">
-            {previousData?.tweets.length === (data?.tweets.length || 1) - 1 ? (
-              <p>You're all caught up</p>
-            ) : (
-              <Spinner />
-            )}
+            {hasMore ? <p>You're all caught up</p> : <Spinner />}
           </div>
         </div>
       )}
