@@ -23,7 +23,7 @@ export const LazyImage: React.FC<LazyImageProps> = ({
         layout="fill"
         objectFit="cover"
         className={className}
-        onError={() => setImageSrc("/placeholder.png")}
+        onError={(e) => setImageSrc("/placeholder.png")}
       />
     </div>
   );

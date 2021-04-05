@@ -8,6 +8,12 @@ import { useFetchMoreTweets } from "../feed/UseFetchMoreTweets";
 
 interface HomePageProps {}
 
+// TODO: refactor things into components
+// TODO: add tweet and follow functionality
+// TODO: fix hasMore, server side?
+// TODO: force users to have default profile (img fallback on server?)
+// TODO: reduce server queries
+
 export const HomePage: React.FC<HomePageProps> = ({}) => {
   useVerifyLoggedIn();
   const { data, loading, fetchMore, previousData } = useTweetsQuery({

@@ -1,5 +1,5 @@
 import React from "react";
-import { useMeQuery } from "../generated/graphql";
+import { useCreateTweetMutation, useMeQuery } from "../generated/graphql";
 import {
   CalendarIcon,
   ChartIcon,
@@ -16,6 +16,7 @@ export interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
   const { data } = useMeQuery();
+  const [tweet] = useCreateTweetMutation();
   return (
     <header className="flex-col text-xl font-bold items-center justify-between pb-8">
       <div className="flex">
