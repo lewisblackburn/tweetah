@@ -41,7 +41,14 @@ export const TweetCard: React.FC<TweetCardProps> = ({ tweet }) => {
             number={tweet.retweetAmount}
           />
           <IconButton
-            icon={<HeartIcon width={16} height={16} />}
+            icon={
+              <HeartIcon
+                fill={tweet.liked ? "#EF4444" : ""}
+                className={tweet.liked ? "text-red-500" : ""}
+                width={16}
+                height={16}
+              />
+            }
             number={tweet.likeAmount}
           />
           <IconButton icon={<ShareIcon width={16} height={16} />} />
