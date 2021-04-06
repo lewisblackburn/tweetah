@@ -1,7 +1,17 @@
-query Likes($tweetId: IntFilter!, $take: Int, $cursor: LikeWhereUniqueInput, $skip: Int) {
-  likes(where: { tweetId: $tweetId }, take: $take, cursor: $cursor, skip: $skip) {
+query Likes(
+  $tweetId: IntFilter!
+  $take: Int
+  $cursor: LikeWhereUniqueInput
+  $skip: Int
+) {
+  likes(
+    where: { tweetId: $tweetId }
+    take: $take
+    cursor: $cursor
+    skip: $skip
+  ) {
     user {
-      ...RegularAuthor
+      ...RegularUser
     }
   }
 }

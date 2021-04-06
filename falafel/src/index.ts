@@ -25,6 +25,8 @@ import {
 } from "./generated/type-graphql";
 import { Context } from "./interfaces/context";
 import { authChecker } from "./middleware/authChecker";
+import { FileResolver } from "./resolver/File";
+import { LikeResolver } from "./resolver/Like";
 import { TweetResolver } from "./resolver/Tweet";
 import { UserResolver } from "./resolver/User";
 
@@ -73,9 +75,11 @@ const main = async () => {
       UserRelationsResolver,
       TweetResolver,
       TweetRelationsResolver,
+      LikeResolver,
       LikeRelationsResolver,
       CommentRelationsResolver,
       RetweetRelationsResolver,
+      FileResolver,
     ],
     authChecker: authChecker,
   });
@@ -126,10 +130,10 @@ const main = async () => {
                 simpleEstimator({ defaultComplexity: 1 }),
               ],
             });
-
-            if (complexity > 14) {
+            const limit = 30;
+            if (complexity > limit) {
               throw new Error(
-                `Sorry, too complicated query! ${complexity} is over 10 that is the max allowed complexity.`
+                `Sorry, too complicated query! ${complexity} is over ${limit} that is the max allowed complexity.`
               );
             }
             // console.log("Used query complexity points:", complexity);

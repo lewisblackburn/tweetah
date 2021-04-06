@@ -71,6 +71,16 @@ export class UserOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
+  followingAmount?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  followerAmount?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
   createdAt?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {

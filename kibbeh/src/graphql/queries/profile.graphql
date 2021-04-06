@@ -1,0 +1,26 @@
+query Profile($take: Int, $offset: Int) {
+  me {
+    id
+    email
+    username
+    displayname
+    coverPhoto
+    avatar
+    bio
+    location
+    website
+    dob
+    createdAt
+    tweets(take: $take, skip: $offset) {
+      id
+      text
+      commentAmount
+      likeAmount
+      retweetAmount
+      liked
+      retweeted
+    }
+    followerAmount
+    followingAmount
+  }
+}

@@ -11,4 +11,14 @@ export class UserSumAggregate {
     nullable: false
   })
   id!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followingAmount!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followerAmount!: number;
 }

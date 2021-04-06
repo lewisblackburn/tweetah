@@ -13,6 +13,8 @@ export enum UserScalarFieldEnum {
   location = "location",
   website = "website",
   dob = "dob",
+  followingAmount = "followingAmount",
+  followerAmount = "followerAmount",
   createdAt = "createdAt",
   updatedAt = "updatedAt"
 }

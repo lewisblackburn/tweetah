@@ -11,4 +11,14 @@ export class UserAvgAggregate {
     nullable: false
   })
   id!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
+    nullable: false
+  })
+  followingAmount!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
+    nullable: false
+  })
+  followerAmount!: number;
 }

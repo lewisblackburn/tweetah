@@ -75,6 +75,7 @@ export type Like = {
   tweetId: Scalars['Int'];
   userId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   tweet: Tweet;
   user: User;
 };
@@ -83,16 +84,29 @@ export type Like = {
 export type Tweet = {
   __typename?: 'Tweet';
   id: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
+  userId: Scalars['Int'];
   text: Scalars['String'];
-  image?: Maybe<Scalars['String']>;
-  authorId: Scalars['Int'];
   commentAmount: Scalars['Int'];
-  retweetAmount: Scalars['Int'];
   likeAmount: Scalars['Int'];
-  author: User;
+  retweetAmount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  comments: Array<Comment>;
   likes: Array<Like>;
+  retweets: Array<Retweet>;
   liked: Scalars['Boolean'];
+  retweeted: Scalars['Boolean'];
+};
+
+
+export type TweetCommentsArgs = {
+  where?: Maybe<CommentWhereInput>;
+  orderBy?: Maybe<Array<CommentOrderByInput>>;
+  cursor?: Maybe<CommentWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CommentScalarFieldEnum>>;
 };
 
 
@@ -105,39 +119,39 @@ export type TweetLikesArgs = {
   distinct?: Maybe<Array<LikeScalarFieldEnum>>;
 };
 
+
+export type TweetRetweetsArgs = {
+  where?: Maybe<RetweetWhereInput>;
+  orderBy?: Maybe<Array<RetweetOrderByInput>>;
+  cursor?: Maybe<RetweetWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<RetweetScalarFieldEnum>>;
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
+  email: Scalars['String'];
   username: Scalars['String'];
   displayname: Scalars['String'];
-  email: Scalars['String'];
   role: UserRole;
-  followedBy: Array<User>;
-  following: Array<User>;
+  coverPhoto: Scalars['String'];
+  avatar: Scalars['String'];
+  bio: Scalars['String'];
+  location: Scalars['String'];
+  website: Scalars['String'];
+  dob: Scalars['String'];
+  followingAmount: Scalars['Int'];
+  followerAmount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   tweets: Array<Tweet>;
+  comments: Array<Comment>;
   likes: Array<Like>;
-};
-
-
-export type UserFollowedByArgs = {
-  where?: Maybe<UserWhereInput>;
-  orderBy?: Maybe<Array<UserOrderByInput>>;
-  cursor?: Maybe<UserWhereUniqueInput>;
-  take?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<UserScalarFieldEnum>>;
-};
-
-
-export type UserFollowingArgs = {
-  where?: Maybe<UserWhereInput>;
-  orderBy?: Maybe<Array<UserOrderByInput>>;
-  cursor?: Maybe<UserWhereUniqueInput>;
-  take?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<UserScalarFieldEnum>>;
+  retweets: Array<Retweet>;
+  following: Array<User>;
+  followers: Array<User>;
 };
 
 
@@ -151,6 +165,16 @@ export type UserTweetsArgs = {
 };
 
 
+export type UserCommentsArgs = {
+  where?: Maybe<CommentWhereInput>;
+  orderBy?: Maybe<Array<CommentOrderByInput>>;
+  cursor?: Maybe<CommentWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CommentScalarFieldEnum>>;
+};
+
+
 export type UserLikesArgs = {
   where?: Maybe<LikeWhereInput>;
   orderBy?: Maybe<Array<LikeOrderByInput>>;
@@ -160,27 +184,57 @@ export type UserLikesArgs = {
   distinct?: Maybe<Array<LikeScalarFieldEnum>>;
 };
 
+
+export type UserRetweetsArgs = {
+  where?: Maybe<RetweetWhereInput>;
+  orderBy?: Maybe<Array<RetweetOrderByInput>>;
+  cursor?: Maybe<RetweetWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<RetweetScalarFieldEnum>>;
+};
+
+
+export type UserFollowingArgs = {
+  where?: Maybe<UserWhereInput>;
+  orderBy?: Maybe<Array<UserOrderByInput>>;
+  cursor?: Maybe<UserWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<UserScalarFieldEnum>>;
+};
+
+
+export type UserFollowersArgs = {
+  where?: Maybe<UserWhereInput>;
+  orderBy?: Maybe<Array<UserOrderByInput>>;
+  cursor?: Maybe<UserWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<UserScalarFieldEnum>>;
+};
+
 export enum UserRole {
   User = 'USER',
   Admin = 'ADMIN'
 }
 
-export type UserWhereInput = {
-  AND?: Maybe<Array<UserWhereInput>>;
-  OR?: Maybe<Array<UserWhereInput>>;
-  NOT?: Maybe<Array<UserWhereInput>>;
+export type TweetWhereInput = {
+  AND?: Maybe<Array<TweetWhereInput>>;
+  OR?: Maybe<Array<TweetWhereInput>>;
+  NOT?: Maybe<Array<TweetWhereInput>>;
   id?: Maybe<IntFilter>;
+  user?: Maybe<UserRelationFilter>;
+  userId?: Maybe<IntFilter>;
+  text?: Maybe<StringFilter>;
+  comments?: Maybe<CommentListRelationFilter>;
+  commentAmount?: Maybe<IntFilter>;
+  likes?: Maybe<LikeListRelationFilter>;
+  likeAmount?: Maybe<IntFilter>;
+  retweets?: Maybe<RetweetListRelationFilter>;
+  retweetAmount?: Maybe<IntFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
-  username?: Maybe<StringFilter>;
-  displayname?: Maybe<StringFilter>;
-  email?: Maybe<StringFilter>;
-  password?: Maybe<StringFilter>;
-  followedBy?: Maybe<UserListRelationFilter>;
-  following?: Maybe<UserListRelationFilter>;
-  role?: Maybe<EnumUserRoleFilter>;
-  tweets?: Maybe<TweetListRelationFilter>;
-  likes?: Maybe<LikeListRelationFilter>;
 };
 
 export type IntFilter = {
@@ -205,26 +259,37 @@ export type NestedIntFilter = {
   not?: Maybe<NestedIntFilter>;
 };
 
-export type DateTimeFilter = {
-  equals?: Maybe<Scalars['DateTime']>;
-  in?: Maybe<Array<Scalars['DateTime']>>;
-  notIn?: Maybe<Array<Scalars['DateTime']>>;
-  lt?: Maybe<Scalars['DateTime']>;
-  lte?: Maybe<Scalars['DateTime']>;
-  gt?: Maybe<Scalars['DateTime']>;
-  gte?: Maybe<Scalars['DateTime']>;
-  not?: Maybe<NestedDateTimeFilter>;
+export type UserRelationFilter = {
+  is?: Maybe<UserWhereInput>;
+  isNot?: Maybe<UserWhereInput>;
 };
 
-export type NestedDateTimeFilter = {
-  equals?: Maybe<Scalars['DateTime']>;
-  in?: Maybe<Array<Scalars['DateTime']>>;
-  notIn?: Maybe<Array<Scalars['DateTime']>>;
-  lt?: Maybe<Scalars['DateTime']>;
-  lte?: Maybe<Scalars['DateTime']>;
-  gt?: Maybe<Scalars['DateTime']>;
-  gte?: Maybe<Scalars['DateTime']>;
-  not?: Maybe<NestedDateTimeFilter>;
+export type UserWhereInput = {
+  AND?: Maybe<Array<UserWhereInput>>;
+  OR?: Maybe<Array<UserWhereInput>>;
+  NOT?: Maybe<Array<UserWhereInput>>;
+  id?: Maybe<IntFilter>;
+  email?: Maybe<StringFilter>;
+  username?: Maybe<StringFilter>;
+  displayname?: Maybe<StringFilter>;
+  password?: Maybe<StringFilter>;
+  role?: Maybe<EnumUserRoleFilter>;
+  coverPhoto?: Maybe<StringFilter>;
+  avatar?: Maybe<StringFilter>;
+  bio?: Maybe<StringFilter>;
+  location?: Maybe<StringFilter>;
+  website?: Maybe<StringFilter>;
+  dob?: Maybe<StringFilter>;
+  tweets?: Maybe<TweetListRelationFilter>;
+  comments?: Maybe<CommentListRelationFilter>;
+  likes?: Maybe<LikeListRelationFilter>;
+  retweets?: Maybe<RetweetListRelationFilter>;
+  following?: Maybe<UserListRelationFilter>;
+  followingAmount?: Maybe<IntFilter>;
+  followers?: Maybe<UserListRelationFilter>;
+  followerAmount?: Maybe<IntFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
 };
 
 export type StringFilter = {
@@ -261,12 +326,6 @@ export type NestedStringFilter = {
   not?: Maybe<NestedStringFilter>;
 };
 
-export type UserListRelationFilter = {
-  every?: Maybe<UserWhereInput>;
-  some?: Maybe<UserWhereInput>;
-  none?: Maybe<UserWhereInput>;
-};
-
 export type EnumUserRoleFilter = {
   equals?: Maybe<UserRole>;
   in?: Maybe<Array<UserRole>>;
@@ -287,54 +346,50 @@ export type TweetListRelationFilter = {
   none?: Maybe<TweetWhereInput>;
 };
 
-export type TweetWhereInput = {
-  AND?: Maybe<Array<TweetWhereInput>>;
-  OR?: Maybe<Array<TweetWhereInput>>;
-  NOT?: Maybe<Array<TweetWhereInput>>;
-  id?: Maybe<IntFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
+export type CommentListRelationFilter = {
+  every?: Maybe<CommentWhereInput>;
+  some?: Maybe<CommentWhereInput>;
+  none?: Maybe<CommentWhereInput>;
+};
+
+export type CommentWhereInput = {
+  AND?: Maybe<Array<CommentWhereInput>>;
+  OR?: Maybe<Array<CommentWhereInput>>;
+  NOT?: Maybe<Array<CommentWhereInput>>;
   text?: Maybe<StringFilter>;
-  image?: Maybe<StringNullableFilter>;
-  authorId?: Maybe<IntFilter>;
-  author?: Maybe<UserRelationFilter>;
-  commentAmount?: Maybe<IntFilter>;
-  retweetAmount?: Maybe<IntFilter>;
-  likeAmount?: Maybe<IntFilter>;
-  likes?: Maybe<LikeListRelationFilter>;
+  tweet?: Maybe<TweetRelationFilter>;
+  tweetId?: Maybe<IntFilter>;
+  user?: Maybe<UserRelationFilter>;
+  userId?: Maybe<IntFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
 };
 
-export type StringNullableFilter = {
-  equals?: Maybe<Scalars['String']>;
-  in?: Maybe<Array<Scalars['String']>>;
-  notIn?: Maybe<Array<Scalars['String']>>;
-  lt?: Maybe<Scalars['String']>;
-  lte?: Maybe<Scalars['String']>;
-  gt?: Maybe<Scalars['String']>;
-  gte?: Maybe<Scalars['String']>;
-  contains?: Maybe<Scalars['String']>;
-  startsWith?: Maybe<Scalars['String']>;
-  endsWith?: Maybe<Scalars['String']>;
-  mode?: Maybe<QueryMode>;
-  not?: Maybe<NestedStringNullableFilter>;
+export type TweetRelationFilter = {
+  is?: Maybe<TweetWhereInput>;
+  isNot?: Maybe<TweetWhereInput>;
 };
 
-export type NestedStringNullableFilter = {
-  equals?: Maybe<Scalars['String']>;
-  in?: Maybe<Array<Scalars['String']>>;
-  notIn?: Maybe<Array<Scalars['String']>>;
-  lt?: Maybe<Scalars['String']>;
-  lte?: Maybe<Scalars['String']>;
-  gt?: Maybe<Scalars['String']>;
-  gte?: Maybe<Scalars['String']>;
-  contains?: Maybe<Scalars['String']>;
-  startsWith?: Maybe<Scalars['String']>;
-  endsWith?: Maybe<Scalars['String']>;
-  not?: Maybe<NestedStringNullableFilter>;
+export type DateTimeFilter = {
+  equals?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  notIn?: Maybe<Array<Scalars['DateTime']>>;
+  lt?: Maybe<Scalars['DateTime']>;
+  lte?: Maybe<Scalars['DateTime']>;
+  gt?: Maybe<Scalars['DateTime']>;
+  gte?: Maybe<Scalars['DateTime']>;
+  not?: Maybe<NestedDateTimeFilter>;
 };
 
-export type UserRelationFilter = {
-  is?: Maybe<UserWhereInput>;
-  isNot?: Maybe<UserWhereInput>;
+export type NestedDateTimeFilter = {
+  equals?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  notIn?: Maybe<Array<Scalars['DateTime']>>;
+  lt?: Maybe<Scalars['DateTime']>;
+  lte?: Maybe<Scalars['DateTime']>;
+  gt?: Maybe<Scalars['DateTime']>;
+  gte?: Maybe<Scalars['DateTime']>;
+  not?: Maybe<NestedDateTimeFilter>;
 };
 
 export type LikeListRelationFilter = {
@@ -352,22 +407,43 @@ export type LikeWhereInput = {
   user?: Maybe<UserRelationFilter>;
   userId?: Maybe<IntFilter>;
   createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
 };
 
-export type TweetRelationFilter = {
-  is?: Maybe<TweetWhereInput>;
-  isNot?: Maybe<TweetWhereInput>;
+export type RetweetListRelationFilter = {
+  every?: Maybe<RetweetWhereInput>;
+  some?: Maybe<RetweetWhereInput>;
+  none?: Maybe<RetweetWhereInput>;
 };
 
-export type UserOrderByInput = {
+export type RetweetWhereInput = {
+  AND?: Maybe<Array<RetweetWhereInput>>;
+  OR?: Maybe<Array<RetweetWhereInput>>;
+  NOT?: Maybe<Array<RetweetWhereInput>>;
+  tweet?: Maybe<TweetRelationFilter>;
+  tweetId?: Maybe<IntFilter>;
+  user?: Maybe<UserRelationFilter>;
+  userId?: Maybe<IntFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+};
+
+export type UserListRelationFilter = {
+  every?: Maybe<UserWhereInput>;
+  some?: Maybe<UserWhereInput>;
+  none?: Maybe<UserWhereInput>;
+};
+
+export type TweetOrderByInput = {
   id?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
+  userId?: Maybe<SortOrder>;
+  text?: Maybe<SortOrder>;
+  commentAmount?: Maybe<SortOrder>;
+  likeAmount?: Maybe<SortOrder>;
+  retweetAmount?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
-  username?: Maybe<SortOrder>;
-  displayname?: Maybe<SortOrder>;
-  email?: Maybe<SortOrder>;
-  password?: Maybe<SortOrder>;
-  role?: Maybe<SortOrder>;
 };
 
 export enum SortOrder {
@@ -375,33 +451,23 @@ export enum SortOrder {
   Desc = 'desc'
 }
 
-export type UserWhereUniqueInput = {
-  id?: Maybe<Scalars['Int']>;
-  username?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-};
-
-export enum UserScalarFieldEnum {
-  Id = 'id',
-  CreatedAt = 'createdAt',
-  UpdatedAt = 'updatedAt',
-  Username = 'username',
-  Displayname = 'displayname',
-  Email = 'email',
-  Password = 'password',
-  Role = 'role'
-}
-
-export type TweetOrderByInput = {
+export type UserOrderByInput = {
   id?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  username?: Maybe<SortOrder>;
+  displayname?: Maybe<SortOrder>;
+  password?: Maybe<SortOrder>;
+  role?: Maybe<SortOrder>;
+  coverPhoto?: Maybe<SortOrder>;
+  avatar?: Maybe<SortOrder>;
+  bio?: Maybe<SortOrder>;
+  location?: Maybe<SortOrder>;
+  website?: Maybe<SortOrder>;
+  dob?: Maybe<SortOrder>;
+  followingAmount?: Maybe<SortOrder>;
+  followerAmount?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
-  text?: Maybe<SortOrder>;
-  image?: Maybe<SortOrder>;
-  authorId?: Maybe<SortOrder>;
-  author?: Maybe<UserOrderByInput>;
-  commentAmount?: Maybe<SortOrder>;
-  retweetAmount?: Maybe<SortOrder>;
-  likeAmount?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 };
 
 export type TweetWhereUniqueInput = {
@@ -410,13 +476,51 @@ export type TweetWhereUniqueInput = {
 
 export enum TweetScalarFieldEnum {
   Id = 'id',
-  CreatedAt = 'createdAt',
+  UserId = 'userId',
   Text = 'text',
-  Image = 'image',
-  AuthorId = 'authorId',
   CommentAmount = 'commentAmount',
+  LikeAmount = 'likeAmount',
   RetweetAmount = 'retweetAmount',
-  LikeAmount = 'likeAmount'
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type Comment = {
+  __typename?: 'Comment';
+  text: Scalars['String'];
+  tweetId: Scalars['Int'];
+  userId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  tweet: Tweet;
+  user: User;
+};
+
+export type CommentOrderByInput = {
+  text?: Maybe<SortOrder>;
+  tweet?: Maybe<TweetOrderByInput>;
+  tweetId?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
+  userId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type CommentWhereUniqueInput = {
+  tweetId_userId?: Maybe<CommentTweetIdUserIdCompoundUniqueInput>;
+};
+
+export type CommentTweetIdUserIdCompoundUniqueInput = {
+  tweetId: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+export enum CommentScalarFieldEnum {
+  Text = 'text',
+  TweetId = 'tweetId',
+  UserId = 'userId',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
 }
 
 export type LikeOrderByInput = {
@@ -425,6 +529,7 @@ export type LikeOrderByInput = {
   user?: Maybe<UserOrderByInput>;
   userId?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 };
 
 export type LikeWhereUniqueInput = {
@@ -439,7 +544,68 @@ export type LikeTweetIdUserIdCompoundUniqueInput = {
 export enum LikeScalarFieldEnum {
   TweetId = 'tweetId',
   UserId = 'userId',
-  CreatedAt = 'createdAt'
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type Retweet = {
+  __typename?: 'Retweet';
+  tweetId: Scalars['Int'];
+  userId: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  tweet: Tweet;
+  user: User;
+};
+
+export type RetweetOrderByInput = {
+  tweet?: Maybe<TweetOrderByInput>;
+  tweetId?: Maybe<SortOrder>;
+  user?: Maybe<UserOrderByInput>;
+  userId?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type RetweetWhereUniqueInput = {
+  tweetId_userId?: Maybe<RetweetTweetIdUserIdCompoundUniqueInput>;
+};
+
+export type RetweetTweetIdUserIdCompoundUniqueInput = {
+  tweetId: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+export enum RetweetScalarFieldEnum {
+  TweetId = 'tweetId',
+  UserId = 'userId',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type UserWhereUniqueInput = {
+  id?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export enum UserScalarFieldEnum {
+  Id = 'id',
+  Email = 'email',
+  Username = 'username',
+  Displayname = 'displayname',
+  Password = 'password',
+  Role = 'role',
+  CoverPhoto = 'coverPhoto',
+  Avatar = 'avatar',
+  Bio = 'bio',
+  Location = 'location',
+  Website = 'website',
+  Dob = 'dob',
+  FollowingAmount = 'followingAmount',
+  FollowerAmount = 'followerAmount',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
 }
 
 export type Mutation = {
@@ -448,7 +614,8 @@ export type Mutation = {
   like: Scalars['Boolean'];
   createTweet: Tweet;
   deleteTweet?: Maybe<Tweet>;
-  follow: User;
+  follow: Scalars['Boolean'];
+  unfollow: Scalars['Boolean'];
   register: User;
   login: User;
   logout: Scalars['Boolean'];
@@ -480,6 +647,11 @@ export type MutationFollowArgs = {
 };
 
 
+export type MutationUnfollowArgs = {
+  userId: Scalars['Int'];
+};
+
+
 export type MutationRegisterArgs = {
   data: RegisterInput;
 };
@@ -502,23 +674,18 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
-export type RegularAuthorFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'displayname'>
-);
-
 export type RegularTweetFragment = (
   { __typename?: 'Tweet' }
-  & Pick<Tweet, 'id' | 'createdAt' | 'text' | 'image' | 'commentAmount' | 'retweetAmount' | 'likeAmount' | 'liked'>
-  & { author: (
+  & Pick<Tweet, 'id' | 'text' | 'commentAmount' | 'likeAmount' | 'retweetAmount' | 'createdAt' | 'liked' | 'retweeted'>
+  & { user: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'displayname'>
+    & Pick<User, 'username' | 'displayname' | 'avatar'>
   ) }
 );
 
 export type RegularUserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'displayname' | 'email' | 'role'>
+  & Pick<User, 'id' | 'username' | 'displayname' | 'avatar'>
 );
 
 export type CreateTweetMutationVariables = Exact<{
@@ -554,10 +721,7 @@ export type FollowMutationVariables = Exact<{
 
 export type FollowMutation = (
   { __typename?: 'Mutation' }
-  & { follow: (
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
-  ) }
+  & Pick<Mutation, 'follow'>
 );
 
 export type LikeMutationVariables = Exact<{
@@ -604,6 +768,16 @@ export type RegisterMutation = (
   ) }
 );
 
+export type UnfollowMutationVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type UnfollowMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'unfollow'>
+);
+
 export type UploadAvatarMutationVariables = Exact<{
   image: Scalars['Upload'];
 }>;
@@ -621,9 +795,9 @@ export type FollowersQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & { followedBy: Array<(
+    & { followers: Array<(
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
+      & RegularUserFragment
     )> }
   )> }
 );
@@ -637,7 +811,7 @@ export type FollowingQuery = (
     { __typename?: 'User' }
     & { following: Array<(
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
+      & RegularUserFragment
     )> }
   )> }
 );
@@ -656,7 +830,7 @@ export type LikesQuery = (
     { __typename?: 'Like' }
     & { user: (
       { __typename?: 'User' }
-      & RegularAuthorFragment
+      & RegularUserFragment
     ) }
   )> }
 );
@@ -672,6 +846,24 @@ export type MeQuery = (
   )> }
 );
 
+export type ProfileQueryVariables = Exact<{
+  take?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ProfileQuery = (
+  { __typename?: 'Query' }
+  & { me?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'username' | 'displayname' | 'coverPhoto' | 'avatar' | 'bio' | 'location' | 'website' | 'dob' | 'createdAt' | 'followerAmount' | 'followingAmount'>
+    & { tweets: Array<(
+      { __typename?: 'Tweet' }
+      & Pick<Tweet, 'id' | 'text' | 'commentAmount' | 'likeAmount' | 'retweetAmount' | 'liked' | 'retweeted'>
+    )> }
+  )> }
+);
+
 export type SearchQueryVariables = Exact<{
   searchString: Scalars['String'];
 }>;
@@ -682,9 +874,9 @@ export type SearchQuery = (
   & { search: Array<(
     { __typename?: 'Tweet' }
     & Pick<Tweet, 'text'>
-    & { author: (
+    & { user: (
       { __typename?: 'User' }
-      & RegularAuthorFragment
+      & RegularUserFragment
     ) }
   )> }
 );
@@ -729,28 +921,21 @@ export type UserQuery = (
   )> }
 );
 
-export const RegularAuthorFragmentDoc = gql`
-    fragment RegularAuthor on User {
-  id
-  username
-  displayname
-}
-    `;
 export const RegularTweetFragmentDoc = gql`
     fragment RegularTweet on Tweet {
   id
-  createdAt
   text
-  image
   commentAmount
-  retweetAmount
   likeAmount
-  liked
-  author {
-    id
+  retweetAmount
+  createdAt
+  user {
     username
     displayname
+    avatar
   }
+  liked
+  retweeted
 }
     `;
 export const RegularUserFragmentDoc = gql`
@@ -758,8 +943,7 @@ export const RegularUserFragmentDoc = gql`
   id
   username
   displayname
-  email
-  role
+  avatar
 }
     `;
 export const CreateTweetDocument = gql`
@@ -830,10 +1014,7 @@ export type DeleteTweetMutationResult = Apollo.MutationResult<DeleteTweetMutatio
 export type DeleteTweetMutationOptions = Apollo.BaseMutationOptions<DeleteTweetMutation, DeleteTweetMutationVariables>;
 export const FollowDocument = gql`
     mutation Follow($userId: Int!) {
-  follow(userId: $userId) {
-    id
-    username
-  }
+  follow(userId: $userId)
 }
     `;
 export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
@@ -989,6 +1170,37 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UnfollowDocument = gql`
+    mutation Unfollow($userId: Int!) {
+  unfollow(userId: $userId)
+}
+    `;
+export type UnfollowMutationFn = Apollo.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
+
+/**
+ * __useUnfollowMutation__
+ *
+ * To run a mutation, you first call `useUnfollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowMutation, { data, loading, error }] = useUnfollowMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUnfollowMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, options);
+      }
+export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
+export type UnfollowMutationResult = Apollo.MutationResult<UnfollowMutation>;
+export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
 export const UploadAvatarDocument = gql`
     mutation uploadAvatar($image: Upload!) {
   uploadAvatar(image: $image)
@@ -1023,13 +1235,12 @@ export type UploadAvatarMutationOptions = Apollo.BaseMutationOptions<UploadAvata
 export const FollowersDocument = gql`
     query Followers {
   me {
-    followedBy {
-      id
-      username
+    followers {
+      ...RegularUser
     }
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useFollowersQuery__
@@ -1061,12 +1272,11 @@ export const FollowingDocument = gql`
     query Following {
   me {
     following {
-      id
-      username
+      ...RegularUser
     }
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useFollowingQuery__
@@ -1098,11 +1308,11 @@ export const LikesDocument = gql`
     query Likes($tweetId: IntFilter!, $take: Int, $cursor: LikeWhereUniqueInput, $skip: Int) {
   likes(where: {tweetId: $tweetId}, take: $take, cursor: $cursor, skip: $skip) {
     user {
-      ...RegularAuthor
+      ...RegularUser
     }
   }
 }
-    ${RegularAuthorFragmentDoc}`;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useLikesQuery__
@@ -1168,16 +1378,73 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ProfileDocument = gql`
+    query Profile($take: Int, $offset: Int) {
+  me {
+    id
+    email
+    username
+    displayname
+    coverPhoto
+    avatar
+    bio
+    location
+    website
+    dob
+    createdAt
+    tweets(take: $take, skip: $offset) {
+      id
+      text
+      commentAmount
+      likeAmount
+      retweetAmount
+      liked
+      retweeted
+    }
+    followerAmount
+    followingAmount
+  }
+}
+    `;
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *      take: // value for 'take'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useProfileQuery(baseOptions?: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+      }
+export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        }
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
+export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const SearchDocument = gql`
     query Search($searchString: String!) {
   search(searchString: $searchString) {
     text
-    author {
-      ...RegularAuthor
+    user {
+      ...RegularUser
     }
   }
 }
-    ${RegularAuthorFragmentDoc}`;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useSearchQuery__

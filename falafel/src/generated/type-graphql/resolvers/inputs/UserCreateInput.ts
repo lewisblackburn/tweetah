@@ -69,6 +69,16 @@ export class UserCreateInput {
   })
   dob?: string | undefined;
 
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  followingAmount?: number | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  followerAmount?: number | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

@@ -68,6 +68,16 @@ export class UserCountAggregate {
   dob!: number | null;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followingAmount!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followerAmount!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
   })
   createdAt!: number | null;

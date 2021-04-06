@@ -79,7 +79,17 @@ export class User {
 
   following?: User[];
 
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followingAmount!: number;
+
   followers?: User[];
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followerAmount!: number;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false

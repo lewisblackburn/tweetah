@@ -1,8 +1,8 @@
 query Search($searchString: String!) {
   search(searchString: $searchString) {
-    text,
-    author {
-    ...RegularAuthor  
+    text
+    user {
+      ...RegularUser
     }
   }
 }

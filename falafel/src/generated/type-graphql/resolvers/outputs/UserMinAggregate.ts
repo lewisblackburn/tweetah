@@ -68,6 +68,16 @@ export class UserMinAggregate {
   })
   dob!: string | null;
 
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followingAmount!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  followerAmount!: number;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

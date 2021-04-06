@@ -1,8 +1,7 @@
 query Following {
   me {
     following {
-      id
-      username
+      ...RegularUser
     }
   }
 }

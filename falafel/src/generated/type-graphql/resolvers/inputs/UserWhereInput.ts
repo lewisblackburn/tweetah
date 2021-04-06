@@ -116,10 +116,20 @@ export class UserWhereInput {
   })
   following?: UserListRelationFilter | undefined;
 
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  followingAmount?: IntFilter | undefined;
+
   @TypeGraphQL.Field(_type => UserListRelationFilter, {
     nullable: true
   })
   followers?: UserListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  followerAmount?: IntFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true

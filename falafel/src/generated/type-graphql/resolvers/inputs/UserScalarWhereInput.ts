@@ -86,6 +86,16 @@ export class UserScalarWhereInput {
   })
   dob?: StringFilter | undefined;
 
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  followingAmount?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  followerAmount?: IntFilter | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
   })

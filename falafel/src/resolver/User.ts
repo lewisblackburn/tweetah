@@ -44,6 +44,9 @@ export class UserResolver {
         following: {
           connect: { id: userId },
         },
+        followingAmount: {
+          increment: 1,
+        },
       },
     });
     return !!follow;
@@ -65,6 +68,9 @@ export class UserResolver {
       data: {
         following: {
           disconnect: { id: userId },
+        },
+        followingAmount: {
+          decrement: 1,
         },
       },
     });

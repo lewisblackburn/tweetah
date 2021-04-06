@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { CommentUpdateManyWithoutUserInput } from "../inputs/CommentUpdateManyWithoutUserInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumUserRoleFieldUpdateOperationsInput } from "../inputs/EnumUserRoleFieldUpdateOperationsInput";
+import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
 import { LikeUpdateManyWithoutUserInput } from "../inputs/LikeUpdateManyWithoutUserInput";
 import { RetweetUpdateManyWithoutUserInput } from "../inputs/RetweetUpdateManyWithoutUserInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
@@ -69,6 +70,16 @@ export class UserUpdateWithoutFollowingInput {
     nullable: true
   })
   dob?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  followingAmount?: IntFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  followerAmount?: IntFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true

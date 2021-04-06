@@ -1,5 +1,4 @@
 import React from "react";
-import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 
 export interface LayoutProps {}
@@ -10,10 +9,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="fixed top-0">
         <Sidebar />
       </div>
-      <div className="ml-20 max-w-xl break-words p-8">
-        <Header />
-        {children}
-      </div>
+      <div className="ml-20 max-w-xl break-words p-8">{children}</div>
     </div>
   );
 };
