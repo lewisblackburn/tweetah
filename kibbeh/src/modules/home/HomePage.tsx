@@ -9,10 +9,12 @@ import { useFetchMoreTweets } from "../feed/UseFetchMoreTweets";
 
 interface HomePageProps {}
 
-// TODO: refactor things into components
-// TODO: add tweet
-// TODO: fix hasMore, server side?
+// TODO: refactor things into components (redo all components?)
+// TODO: add tweet and follow functionality
+// TODO: fix hasMore
 // TODO: reduce server queries
+// TODO: TweetCard diversity for tweets and profile tweets (user avatar problem)
+// TODO: user, profile, register page
 
 export const HomePage: React.FC<HomePageProps> = ({}) => {
   useVerifyLoggedIn();
