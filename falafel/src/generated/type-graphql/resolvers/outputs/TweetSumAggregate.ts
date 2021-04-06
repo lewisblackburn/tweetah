@@ -15,7 +15,7 @@ export class TweetSumAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  authorId!: number;
+  userId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
@@ -25,10 +25,10 @@ export class TweetSumAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  retweetAmount!: number;
+  likeAmount!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  likeAmount!: number;
+  retweetAmount!: number;
 }

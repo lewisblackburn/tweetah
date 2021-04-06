@@ -12,25 +12,15 @@ export class TweetMinAggregate {
   })
   id!: number;
 
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
   })
-  createdAt!: Date | null;
+  userId!: number;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   text!: string | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  image!: string | null;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
-  authorId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
@@ -40,10 +30,20 @@ export class TweetMinAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  retweetAmount!: number;
+  likeAmount!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  likeAmount!: number;
+  retweetAmount!: number;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt!: Date | null;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt!: Date | null;
 }

@@ -15,6 +15,11 @@ export class LikeUpdateInput {
   })
   createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => TweetUpdateOneRequiredWithoutLikesInput, {
     nullable: true
   })

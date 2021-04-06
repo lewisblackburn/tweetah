@@ -14,6 +14,11 @@ export class LikeUpdateWithoutTweetInput {
   })
   createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutLikesInput, {
     nullable: true
   })

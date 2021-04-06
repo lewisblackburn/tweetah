@@ -5,7 +5,6 @@ import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { StringFilter } from "../inputs/StringFilter";
-import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
 @TypeGraphQL.InputType({
   isAbstract: true
@@ -31,25 +30,15 @@ export class TweetScalarWhereInput {
   })
   id?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
+  @TypeGraphQL.Field(_type => IntFilter, {
     nullable: true
   })
-  createdAt?: DateTimeFilter | undefined;
+  userId?: IntFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   text?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  image?: StringNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => IntFilter, {
-    nullable: true
-  })
-  authorId?: IntFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntFilter, {
     nullable: true
@@ -59,10 +48,20 @@ export class TweetScalarWhereInput {
   @TypeGraphQL.Field(_type => IntFilter, {
     nullable: true
   })
-  retweetAmount?: IntFilter | undefined;
+  likeAmount?: IntFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntFilter, {
     nullable: true
   })
-  likeAmount?: IntFilter | undefined;
+  retweetAmount?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  createdAt?: DateTimeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFilter | undefined;
 }

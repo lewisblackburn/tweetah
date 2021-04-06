@@ -2,13 +2,13 @@ import * as TypeGraphQL from "type-graphql";
 
 export enum TweetScalarFieldEnum {
   id = "id",
-  createdAt = "createdAt",
+  userId = "userId",
   text = "text",
-  image = "image",
-  authorId = "authorId",
   commentAmount = "commentAmount",
+  likeAmount = "likeAmount",
   retweetAmount = "retweetAmount",
-  likeAmount = "likeAmount"
+  createdAt = "createdAt",
+  updatedAt = "updatedAt"
 }
 TypeGraphQL.registerEnumType(TweetScalarFieldEnum, {
   name: "TweetScalarFieldEnum",

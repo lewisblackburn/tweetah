@@ -27,4 +27,9 @@ export class Like {
     nullable: false
   })
   createdAt!: Date;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
 }

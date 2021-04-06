@@ -1,14 +1,5 @@
-import {
-  Arg,
-  Args,
-  Authorized,
-  Ctx,
-  Int,
-  Mutation,
-  Query,
-  Resolver,
-} from "type-graphql";
-import { FindManyLikeArgs, Like } from "../generated/type-graphql";
+import { Arg, Authorized, Ctx, Int, Mutation, Resolver } from "type-graphql";
+import { Like } from "../generated/type-graphql";
 import { Context } from "../interfaces/context";
 
 @Resolver(() => Like)
@@ -20,7 +11,7 @@ export class LikeResolver {
   async like(
     @Ctx() ctx: Context,
     @Arg("tweetId", (type) => Int) tweetId: number
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     const userId = ctx.req.session.userId || -1;
     try {
       await ctx.prisma.like
@@ -72,16 +63,5 @@ export class LikeResolver {
         });
       return false;
     }
-  }
-
-  @Authorized(["USER", "ADMIN"])
-  @Query(() => [Like], {
-    nullable: false,
-  })
-  async likes(
-    @Ctx() ctx: Context,
-    @Args() args: FindManyLikeArgs
-  ): Promise<Like[]> {
-    return ctx.prisma.like.findMany(args);
   }
 }

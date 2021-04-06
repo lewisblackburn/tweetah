@@ -35,5 +35,5 @@ export class FindManyTweetArgs {
   @TypeGraphQL.Field(_type => [TweetScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "text" | "image" | "authorId" | "commentAmount" | "retweetAmount" | "likeAmount"> | undefined;
+  distinct?: Array<"id" | "userId" | "text" | "commentAmount" | "likeAmount" | "retweetAmount" | "createdAt" | "updatedAt"> | undefined;
 }

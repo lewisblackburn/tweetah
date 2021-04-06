@@ -15,7 +15,7 @@ export class TweetAvgAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
     nullable: false
   })
-  authorId!: number;
+  userId!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
     nullable: false
@@ -25,10 +25,10 @@ export class TweetAvgAggregate {
   @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
     nullable: false
   })
-  retweetAmount!: number;
+  likeAmount!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
     nullable: false
   })
-  likeAmount!: number;
+  retweetAmount!: number;
 }

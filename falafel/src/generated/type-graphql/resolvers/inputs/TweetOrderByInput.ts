@@ -14,10 +14,15 @@ export class TweetOrderByInput {
   })
   id?: "asc" | "desc" | undefined;
 
+  @TypeGraphQL.Field(_type => UserOrderByInput, {
+    nullable: true
+  })
+  user?: UserOrderByInput | undefined;
+
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  createdAt?: "asc" | "desc" | undefined;
+  userId?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
@@ -27,22 +32,12 @@ export class TweetOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  image?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  authorId?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => UserOrderByInput, {
-    nullable: true
-  })
-  author?: UserOrderByInput | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
   commentAmount?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  likeAmount?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
@@ -52,5 +47,10 @@ export class TweetOrderByInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  likeAmount?: "asc" | "desc" | undefined;
+  createdAt?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  updatedAt?: "asc" | "desc" | undefined;
 }

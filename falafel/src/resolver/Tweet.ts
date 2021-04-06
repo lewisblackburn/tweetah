@@ -17,19 +17,26 @@ import { Context } from "../interfaces/context";
 export class TweetResolver {
   @FieldResolver(() => Boolean)
   async liked(@Root() root: any, @Ctx() ctx: Context): Promise<Boolean> {
-    const tweetId = root.id;
     const userId = ctx.req.session.userId;
-
-    if (!userId || !tweetId) return false;
-
+    if (!userId) throw Error("You need to be authenticated");
     const like = await ctx.prisma.like.findUnique({
       where: {
-        tweetId_userId: { tweetId, userId },
+        tweetId_userId: { tweetId: root.id, userId },
       },
     });
+    return !!like;
+  }
 
-    if (!like) return false;
-    return true;
+  @FieldResolver(() => Boolean)
+  async retweeted(@Root() root: any, @Ctx() ctx: Context): Promise<Boolean> {
+    const userId = ctx.req.session.userId;
+    if (!userId) throw Error("You need to be authenticated");
+    const retweet = await ctx.prisma.retweet.findUnique({
+      where: {
+        tweetId_userId: { tweetId: root.id, userId },
+      },
+    });
+    return !!retweet;
   }
 
   @Authorized(["USER", "ADMIN"])
@@ -62,11 +69,9 @@ export class TweetResolver {
         },
       });
     const userIds = users.map((x) => x.id);
-    // const count = await ctx.prisma.user.count()
-    // const hasMore = typeof take === "number" ? skip + take < count : false
     return ctx.prisma.tweet.findMany({
       where: {
-        authorId: {
+        userId: {
           in: [userId, ...userIds],
         },
       },
@@ -82,7 +87,7 @@ export class TweetResolver {
     return ctx.prisma.tweet.findMany({
       where: {
         OR: [
-          { author: { username: { contains: searchString } } },
+          { user: { username: { contains: searchString } } },
           { text: { contains: searchString } },
         ],
       },
@@ -101,7 +106,7 @@ export class TweetResolver {
     return ctx.prisma.tweet.create({
       data: {
         text,
-        author: {
+        user: {
           connect: {
             id: userId,
           },
@@ -119,7 +124,7 @@ export class TweetResolver {
     const tweet = await ctx.prisma.tweet.findUnique({
       where: { id: tweetId },
     });
-    if (tweet?.authorId !== ctx.req.session.userId)
+    if (tweet?.userId !== ctx.req.session.userId)
       throw new Error("You can only delete your own tweet!");
 
     return ctx.prisma.tweet.delete({

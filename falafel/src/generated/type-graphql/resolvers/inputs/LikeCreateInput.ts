@@ -14,6 +14,11 @@ export class LikeCreateInput {
   })
   createdAt?: Date | undefined;
 
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
+
   @TypeGraphQL.Field(_type => TweetCreateNestedOneWithoutLikesInput, {
     nullable: false
   })

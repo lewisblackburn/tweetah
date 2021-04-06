@@ -17,14 +17,14 @@ import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { COOKIE_NAME, __prod__ } from "./constants";
 import {
+  CommentRelationsResolver,
   LikeRelationsResolver,
+  RetweetRelationsResolver,
   TweetRelationsResolver,
   UserRelationsResolver,
 } from "./generated/type-graphql";
 import { Context } from "./interfaces/context";
 import { authChecker } from "./middleware/authChecker";
-import { FileResolver } from "./resolver/File";
-import { LikeResolver } from "./resolver/Like";
 import { TweetResolver } from "./resolver/Tweet";
 import { UserResolver } from "./resolver/User";
 
@@ -70,12 +70,12 @@ const main = async () => {
   const schema = await buildSchema({
     resolvers: [
       UserResolver,
-      TweetResolver,
-      LikeResolver,
-      FileResolver,
-      TweetRelationsResolver,
       UserRelationsResolver,
+      TweetResolver,
+      TweetRelationsResolver,
       LikeRelationsResolver,
+      CommentRelationsResolver,
+      RetweetRelationsResolver,
     ],
     authChecker: authChecker,
   });

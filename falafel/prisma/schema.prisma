@@ -18,41 +18,76 @@ enum UserRole {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  username    String   @unique
-  displayname String
-  email       String   @unique
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  username        String    @unique
+  displayname     String
   /// @TypeGraphQL.omit(output: true)
-  password    String
-  followedBy  User[]   @relation("UserFollows", references: [id])
-  following   User[]   @relation("UserFollows", references: [id])
-  role        UserRole @default(USER)
-  tweets      Tweet[]
-  likes       Like[]
+  password        String
+  role            UserRole  @default(USER)
+  coverPhoto      String    @default(value: "https://via.placeholder.com/1500x500")
+  avatar          String    @default(value: "https://via.placeholder.com/400x400")
+  bio             String    @default(value: "")
+  location        String    @default(value: "")
+  website         String    @default(value: "")
+  dob             String    @default(value: "")
+  tweets          Tweet[]   @relation(name: "TweetsByUser")
+  comments        Comment[] @relation("CommentsByUser")
+  likes           Like[]    @relation("LikesByUser")
+  retweets        Retweet[] @relation("RetweetsByUser")
+  following       User[]    @relation(name: "FollowRelation")
+  followingAmount Int
+  followers       User[]    @relation(name: "FollowRelation")
+  followerAmount  Int
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model Tweet {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
+  id            Int       @id @default(autoincrement())
+  user          User      @relation(name: "TweetsByUser", fields: [userId], references: [id])
+  userId        Int
   text          String
-  image         String?
-  authorId      Int
-  author        User     @relation(fields: [authorId], references: [id])
-  commentAmount Int      @default(0)
-  retweetAmount Int      @default(0)
-  likeAmount    Int      @default(0)
-  likes         Like[]
+  comments      Comment[] @relation(name: "CommentsForTweets")
+  commentAmount Int       @default(0)
+  likes         Like[]    @relation("LikesForTweets")
+  likeAmount    Int       @default(0)
+  retweets      Retweet[] @relation("RetweetsOfTweet")
+  retweetAmount Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
 
+model Comment {
+  text      String
+  tweet     Tweet    @relation(name: "CommentsForTweets", fields: [tweetId], references: [id])
+  tweetId   Int
+  user      User     @relation(name: "CommentsByUser", fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([tweetId, userId])
 }
 
 model Like {
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-  tweetId   Int // relation scalar field (used in the `@relation` attribute above)
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int // relation scalar field (used in the `@relation` attribute above)
+  tweet     Tweet    @relation(name: "LikesForTweets", fields: [tweetId], references: [id])
+  tweetId   Int
+  user      User     @relation(name: "LikesByUser", fields: [userId], references: [id])
+  userId    Int
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([tweetId, userId])
+}
+
+model Retweet {
+  tweet     Tweet    @relation(name: "RetweetsOfTweet", fields: [tweetId], references: [id])
+  tweetId   Int
+  user      User     @relation(name: "RetweetsByUser", fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([tweetId, userId])
 }

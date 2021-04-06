@@ -28,15 +28,15 @@ export class UserResolver {
   }
 
   @Authorized(["USER", "ADMIN"])
-  @Mutation(() => User)
-  follow(
+  @Mutation(() => Boolean)
+  async follow(
     @Arg("userId", (type) => Int) userId: number,
     @Ctx() ctx: Context
-  ): Promise<User> {
+  ): Promise<boolean> {
     if (userId === ctx.req.session.userId)
-      throw new Error("you can't follow yourself");
+      throw new Error("You can't follow yourself");
 
-    return ctx.prisma.user.update({
+    const follow = await ctx.prisma.user.update({
       where: {
         id: ctx.req.session.userId,
       },
@@ -46,6 +46,29 @@ export class UserResolver {
         },
       },
     });
+    return !!follow;
+  }
+
+  @Authorized(["USER", "ADMIN"])
+  @Mutation(() => Boolean)
+  async unfollow(
+    @Arg("userId", (type) => Int) userId: number,
+    @Ctx() ctx: Context
+  ): Promise<boolean> {
+    if (userId === ctx.req.session.userId)
+      throw new Error("You can't unfollow yourself");
+
+    const follow = await ctx.prisma.user.update({
+      where: {
+        id: ctx.req.session.userId,
+      },
+      data: {
+        following: {
+          disconnect: { id: userId },
+        },
+      },
+    });
+    return !!follow;
   }
 
   @Authorized(["USER", "ADMIN"])

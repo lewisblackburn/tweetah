@@ -23,6 +23,11 @@ export class LikeCountAggregate {
   createdAt!: number | null;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  updatedAt!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
   _all!: number;
