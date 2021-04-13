@@ -1,5 +1,6 @@
 import React from "react";
 import { useTweetsQuery } from "../../generated/graphql";
+import { ComposeTweet } from "../../ui/ComposeTweet";
 import { Feed } from "../../ui/Feed";
 import { Header } from "../../ui/Header";
 import { Layout } from "../../ui/Layout";
@@ -36,8 +37,11 @@ export const HomePage: React.FC<HomePageProps> = ({}) => {
           <Spinner />
         </div>
       ) : (
-        <div>
-          <Header />
+        <div className="border-l border-r border-gray-900 px-8">
+          <Header>
+            <h1>username</h1>
+          </Header>
+          <ComposeTweet />
           <Feed tweets={data!.tweets} />
           <div className="grid place-items-center pt-8">
             {!hasMore ? <p>You're all caught up</p> : <Spinner />}

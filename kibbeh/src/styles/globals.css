@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -15,4 +15,8 @@
   --color-accent: #fd4d4d;
   --color-accent-hover: #fd6868;
   --color-accent-disabled: #f5bfbf;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
