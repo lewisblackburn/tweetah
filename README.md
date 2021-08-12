@@ -4,7 +4,7 @@ This is a redo of my previous twitter clone: twtr
 # techonology
 - React
 - TypeScript
-- GraphQl
+- GraphQL
 - Apollo
 - Node.js
 - PostgreSQL
